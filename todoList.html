@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8" />
+    <title>LIFF測試</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    
+<script>
+
+
+    // $(document).ready(function () {
+    //     // Using a Promise object
+    //     liff.init({
+    //         liffId: '1607718325-8lN5k6oL' // Use own liffId
+    //     })
+    //     .then(() => {
+    //         // Start to use liff's api
+    //         liff.getProfile()
+    //         .then(profile => {
+    //             liff.openWindow({
+    //             url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
+    //             });
+    //             liff.closeWindow();  //關閉視窗
+    //         })
+    //         .catch((err) => {
+    //         console.log('error', err);
+    //         });
+
+    //     })
+    //     .catch((err) => {
+    //         // Error happens during initialization
+    //         console.log(err.code, err.message);
+    //     });
+    // });
+
+</script>
+
+<style>
+    body {
+        font-size: 20px;
+    }
+
+    .home-row {
+        min-height: 90px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .home-row-contain {
+        min-height: 90px;
+    }
+
+    .remaining-row {
+        min-height: 50px;
+        border-bottom: 1px solid #dee2e6;
+        justify-content: right;
+        align-items: center;
+    }
+</style>
+
+
+</head>
+    <body>
+        <header class="nav-tabs navbar py-3">
+            <nav class="container-fluid justify-content-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-chevron-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                </svg>
+                <span class="fs-1 px-4">待辦事項</span>
+            </nav>
+        </header>
+
+        <div class="row">
+            <div class="remaining-row d-flex px-4">
+                <span>尚未完成：4</span>
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active w-50" id="nav-done-tab" data-bs-toggle="tab" data-bs-target="#nav-done" type="button" role="tab" aria-controls="nav-done" aria-selected="true">已完成</button>
+                <button class="nav-link w-50" id="nav-undone-tab" data-bs-toggle="tab" data-bs-target="#nav-undone" type="button" role="tab" aria-controls="nav-undone" aria-selected="false">未完成</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-done" role="tabpanel" aria-labelledby="nav-done-tab">
+                <div class="home-row">
+                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
+                        <div class="d-flex justify-content-between w-100">
+                            <div>掃地</div>
+                            <div>2022/10/10</div>
+                        </div>
+                        <div>
+                            Me
+                        </div>
+			
+                    </div>
+                </div>
+                <div class="home-row">
+                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
+                        <div class="d-flex justify-content-between w-100">
+                            <div>訂餐廳</div>
+                            <div>2022/10/14</div>
+                        </div>
+                        <div>
+                            Me
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-undone" role="tabpanel" aria-labelledby="nav-undone-tab">
+                <div class="home-row">
+                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
+                        <div class="d-flex justify-content-between w-100">
+                            <div>採買</div>
+                            <div>2022/10/01</div>
+                        </div>
+                        <div>
+                            Me
+                        </div>
+			
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    </body>
+</html>

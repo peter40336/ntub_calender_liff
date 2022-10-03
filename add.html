@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8" />
+    <title>LIFF測試</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+    <script>
+        // $(document).ready(function () {
+        //     // Using a Promise object
+        //     liff.init({
+        //         liffId: '1607718325-8lN5k6oL' // Use own liffId
+        //     })
+        //     .then(() => {
+        //         // Start to use liff's api
+        //         liff.getProfile()
+        //         .then(profile => {
+        //             liff.openWindow({
+        //             url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
+        //             });
+        //             liff.closeWindow();  //關閉視窗
+        //         })
+        //         .catch((err) => {
+        //         console.log('error', err);
+        //         });
+
+        //     })
+        //     .catch((err) => {
+        //         // Error happens during initialization
+        //         console.log(err.code, err.message);
+        //     });
+        // });
+    </script>
+
+    <style>
+        body {
+            font-size: 16px;
+        }
+
+        .home-row {
+            min-height: 70px;
+            border-bottom: 1px solid #dee2e6;
+            padding-right: 0px !important;
+        }
+
+        .home-row-contain {
+            min-height: 70px;
+        }
+
+        .space-row {
+            min-height: 40px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .form-control {
+            padding: 12px 18px;
+            border-radius: 22px;
+            box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+            border: solid 1px rgba(0,0,0,.2);
+            line-height: normal;
+        }
+
+        .col-form-label {
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: .36px;
+            text-align: left;
+            color: #000;
+            margin: auto 0;
+        }
+
+        .input-col {
+            flex: 1 1 0;
+        }
+
+        .save-btn-span {
+            flex: 1;
+            text-align: right;
+        }
+
+        .save-btn {
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+            border: solid 1px rgba(0, 0, 0, 0.2);
+            background-color: #ae9e71;
+            font-size: 1.3rem;
+            letter-spacing: 0.36px;
+            color: #fff;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <header class="nav-tabs navbar py-3">
+        <nav class="container-fluid justify-content-start">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                class="bi bi-chevron-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+            </svg>
+            <span class="fs-1 px-4">行事曆</span>
+            <span class="px-2 save-btn-span">
+                <button class="save-btn">
+                    Add
+                </button>
+            </span>
+        </nav>
+    </header>
+
+    <div class="row">
+        <div class="space-row">
+        </div>
+
+        <div class="home-row">
+            <div class="home-row-contain container-fluid d-flex align-items-center px-3">
+
+                <div class="row w-100">
+                    <label for="Name" class="col-3 col-form-label">名稱</label>
+                    
+                    <div class="input-col">
+                        <input class="form-control" name="Name" id="Name" type="text" value="測試活動名" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-row">
+        </div>
+
+        <div class="home-row">
+            <div class="home-row-contain container-fluid d-flex align-items-center px-3">
+
+                <div class="row w-100">
+                    <label for="Date" class="col-3 col-form-label">日期</label>
+                    
+                    <div class="input-col">
+                        <input class="form-control" name="Date" id="Date" type="text" value="2022/10/11" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-row">
+        </div>
+
+        <div class="home-row">
+            <div class="home-row-contain container-fluid d-flex align-items-center px-3">
+
+                <div class="row w-100">
+                    <label for="" class="col-3 col-form-label">參與人</label>
+
+                    <div class="input-col">
+                        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                            <option value="AL">Alabama</option>
+                            <option value="AL1">Alabama1</option>
+                            <option value="AL2">Alabama2</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="space-row">
+        </div>
+
+        <div class="home-row">
+            <div class="home-row-contain container-fluid d-flex align-items-center px-3">
+
+                <div class="row w-100">
+                    <label for="Comment" class="col-3 col-form-label">備註</label>
+                    
+                    <div class="col-9">
+                        <textarea name="Comment" id="Comment" class="form-control" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({
+            theme: "classic",
+            width: '100%'
+        });
+    });
+    </script>
+</body>
+<style>
+    .row {
+        padding-right: 0px !important;
+    }
+</style>
+</html>
