@@ -38,24 +38,37 @@
             // Start to use liff's api
             liff.getProfile()
             .then(profile => {
+                console.log(profile)
                 // liff.openWindow({
                 // url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
                 // });
                 // liff.closeWindow();  //關閉視窗
-                var data = {
-                    accessToken: liff.getAccessToken()
-                };
-                console.log(data)
                 
-                const idToken = liff.getIDToken();
-                console.log("getIDToken", idToken) 
-
-                const idToken2 = liff.getDecodedIDToken();
-                console.log(idToken2) // print decoded idToken object
             })
             .catch((err) => {
             console.log('error', err);
             });
+
+            var data = {
+                accessToken: liff.getAccessToken()
+            };
+            console.log(data)
+            
+            liff.getAccessToken().then((e) => {
+                console.log("getAccessToken", e)
+            })
+
+            const idToken = liff.getIDToken()
+            console.log("getIDToken", idToken) 
+            liff.getIDToken().then((e) => {
+                console.log("getIDToken", e)
+            })
+
+            const idToken2 = liff.getDecodedIDToken();
+            liff.getDecodedIDToken().then((e) => {
+                console.log("getDecodedIDToken", e)
+            })
+            console.log(idToken) // print decoded idToken object
 
         })
         .catch((err) => {
