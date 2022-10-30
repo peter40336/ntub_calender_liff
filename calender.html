@@ -21,8 +21,14 @@
     
 <script>
 
+    // window.addEventListener("load", function(){
+    //     var load_screen = document.getElementById("load_screen");
+    //     document.body.removeChild(load_screen);
+    // });
 
     $(document).ready(function () {
+
+        document.getElementById('load_screen').classList.remove('d-none');
         // Using a Promise object
         liff.init({
             liffId: '1657271223-2bLxz75P' // Use own liffId
@@ -138,6 +144,37 @@
     .fc .fc-toolbar.fc-header-toolbar {
         font-size: 0.9em
     }
+
+    div#load_screen {
+        background: #ecefff;
+        opacity: 1;
+        position: fixed;
+        z-index: 999999;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%; 
+    }
+
+    div#load_screen .loader {
+        display: flex;
+        justify-content: center;
+        height: 100vh; 
+    }
+
+    div#load_screen .loader-content {
+        right: 0;
+        align-self: center; 
+    }
+
+    .spinner-grow {
+    color: #304aca; }
+
+    div#load_screen .loader {
+        width: 100vw;
+    }
+
 </style>
 
 
@@ -153,6 +190,13 @@
                 <span class="fs-1 px-4">行事曆</span>
             </nav>
         </header>
+        <div id="load_screen">
+            <div class="loader">
+                <div class="loader-content">
+                    <div class="spinner-grow align-self-center"></div>
+                </div>
+            </div>
+        </div>
         rID:<span id="rID"></span>
         gID:<span id="gID"></span>
         <div class="pt-4 container">
