@@ -30,6 +30,13 @@
         .then(() => {
             // Start to use liff's api
             liff.getProfile()
+            .then(async () => {
+                if (liff.isLoggedIn()) {
+                console.log(liff.getProfile());
+                } else {
+                liff.login();
+                }
+            })
             .then(profile => {
                 // liff.openWindow({
                 // url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
