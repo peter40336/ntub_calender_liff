@@ -54,9 +54,9 @@
             };
             console.log(data)
             
-            liff.getAccessToken().then((e) => {
-                console.log("getAccessToken", e)
-            })
+            // liff.getAccessToken().then((e) => {
+            //     console.log("getAccessToken", e)
+            // })
 
             const idToken = liff.getIDToken()
             console.log("getIDToken", idToken) 
@@ -69,6 +69,8 @@
                 console.log("getDecodedIDToken", e)
             })
             console.log(idToken) // print decoded idToken object
+
+            console.log("getContext", liff.getContext())
 
         })
         .catch((err) => {
