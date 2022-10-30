@@ -19,34 +19,38 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
     
-    
 <script>
 
 
-    // $(document).ready(function () {
-    //     // Using a Promise object
-    //     liff.init({
-    //         liffId: '1607718325-8lN5k6oL' // Use own liffId
-    //     })
-    //     .then(() => {
-    //         // Start to use liff's api
-    //         liff.getProfile()
-    //         .then(profile => {
-    //             liff.openWindow({
-    //             url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
-    //             });
-    //             liff.closeWindow();  //關閉視窗
-    //         })
-    //         .catch((err) => {
-    //         console.log('error', err);
-    //         });
+    $(document).ready(function () {
+        // Using a Promise object
+        liff.init({
+            liffId: '1657271223-2bLxz75P' // Use own liffId
+        })
+        .then(() => {
+            // Start to use liff's api
+            liff.getProfile()
+            .then(profile => {
+                // liff.openWindow({
+                // url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
+                // });
+                // liff.closeWindow();  //關閉視窗
+                var data = {
+                    accessToken: liff.getAccessToken()
+                };
+                console.log(data)
+                console.log("123")
+            })
+            .catch((err) => {
+            console.log('error', err);
+            });
 
-    //     })
-    //     .catch((err) => {
-    //         // Error happens during initialization
-    //         console.log(err.code, err.message);
-    //     });
-    // });
+        })
+        .catch((err) => {
+            // Error happens during initialization
+            console.log(err.code, err.message);
+        });
+    });
 
 </script>
 
