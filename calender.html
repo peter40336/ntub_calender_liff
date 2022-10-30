@@ -37,7 +37,6 @@
         .then(() => {
             // Start to use liff's api
             liff.getProfile()
-            
             .then(profile => {
                 // liff.openWindow({
                 // url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
@@ -47,7 +46,12 @@
                     accessToken: liff.getAccessToken()
                 };
                 console.log(data)
-                console.log("123")
+                
+                const idToken = liff.getIDToken();
+                console.log("getIDToken", idToken) 
+
+                const idToken2 = liff.getDecodedIDToken();
+                console.log(idToken2) // print decoded idToken object
             })
             .catch((err) => {
             console.log('error', err);
