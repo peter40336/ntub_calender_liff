@@ -25,21 +25,63 @@
     //     var load_screen = document.getElementById("load_screen");
     //     document.body.removeChild(load_screen);
     // });
+    const loader = document.getElementById('load_screen');
+
+    function checkIsLogin (liff) {
+        if (liff.isLoggedIn()) {
+            liff.getProfile()
+        } else {
+            liff.login();
+        }
+    }
+
+    function calendarPoint() {
+        
+        try {
+            const o = {
+                userID : document.getElementById("uID").innerHTML,
+                roomID : document.getElementById("rID").innerHTML,
+                groupID : document.getElementById("gID").innerHTML,
+            }
+            const res = await fetchCurried('/rent/list')({
+                pa: JSON.stringify(o),
+            });
+
+            console.log(o)
+            console.log(res)
+            loader.classList.add('d-none');
+        } catch (error) {
+            // errHandler(error);
+        }
+    }
+
+
+    const fetchCurried = function (url) {
+        return function (obj) {
+            return new Promise((resolve, reject) => {
+                $.post(url, obj || {}).done((data) => {
+                    if (
+                        Object.prototype.hasOwnProperty.call(data, 'error') ||
+                        Object.prototype.hasOwnProperty.call(data, 'Error')
+                    ) {
+                        reject(data);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        };
+    };
 
     $(document).ready(function () {
 
-        document.getElementById('load_screen').classList.remove('d-none');
+        loader.classList.remove('d-none');
+
         // Using a Promise object
         liff.init({
             liffId: '1657271223-2bLxz75P' // Use own liffId
         })
-        .then(async () => {
-            if (liff.isLoggedIn()) {
-            console.log(liff.getProfile());
-            } else {
-            liff.login();
-            }
-        })
+        .then(async () => checkIsLogin(liff))
         .then(() => {
             // Start to use liff's api
             try {
@@ -88,10 +130,13 @@
 
                 document.getElementById("gID").innerHTML = gID;
                 document.getElementById("rID").innerHTML = rID;
+                document.getElementById("uID").innerHTML = profile.userId;
+
             } catch (e){
                 console.log(e)
             }
         })
+        .then(() => calendarPoint())
         .catch((err) => {
             // Error happens during initialization
             console.log(err.code, err.message);
@@ -169,7 +214,8 @@
     }
 
     .spinner-grow {
-    color: #304aca; }
+    color: gray; 
+    }
 
     div#load_screen .loader {
         width: 100vw;
@@ -199,6 +245,7 @@
         </div>
         rID:<span id="rID"></span>
         gID:<span id="gID"></span>
+        uID:<span id="uID"></span>
         <div class="pt-4 container">
             <div id='calendar'></div>
         </div>
