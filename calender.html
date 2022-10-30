@@ -72,10 +72,19 @@
                 console.log(idToken2) // print decoded idToken object
 
                 console.log("getContext", liff.getContext())
+
+                var getUrlString = location.href;
+                var url = new URL(getUrlString);
+                url.searchParams.get('userId')
+                var gID = url.searchParams.get('groupId')
+
+                var rID = url.searchParams.get('roomId')
+
+                document.getElementById("gID").innerHTML = gID;
+                document.getElementById("rID").innerHTML = rID;
             } catch (e){
                 console.log(e)
             }
-
         })
         .catch((err) => {
             // Error happens during initialization
@@ -144,7 +153,8 @@
                 <span class="fs-1 px-4">行事曆</span>
             </nav>
         </header>
-
+        rID:<span id="rID"></span>
+        gID:<span id="gID"></span>
         <div class="pt-4 container">
             <div id='calendar'></div>
         </div>
