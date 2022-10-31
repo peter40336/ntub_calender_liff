@@ -24,7 +24,7 @@
         }
     }
 
-    async function calendarPoint() {
+    function calendarPoint() {
         
         try {
             const o = {
@@ -32,7 +32,7 @@
                 roomID : document.getElementById("rID").innerHTML,
                 groupID : document.getElementById("gID").innerHTML,
             }
-            const res = await fetchCurried('/rent/list')({
+            const res = fetchCurried('/rent/list')({
                 pa: JSON.stringify(o),
             });
 
@@ -40,7 +40,46 @@
             // console.log(res)
             document.getElementById('load_screen').classList.add('d-none');
         } catch (error) {
-            // errHandler(error);
+            errHandler(error);
+        }
+    }
+
+    function errHandler(err) {
+        loader.classList.add('d-none');
+        if (err.error === '1') {
+            (document.querySelector('#errorModal p')).innerHTML =
+            err.errmsg;
+            $('#errorModal')
+            .modal({
+                backdrop: 'static',
+                keyboard: false,
+            })
+            .modal('show');
+        } else if (err.error === '5') {
+            (document.querySelector('#loginModal p')).innerHTML =
+            err.errmsg;
+            $('#loginModal')
+            .modal({
+                backdrop: 'static',
+                keyboard: false,
+            })
+            .modal('show');
+        } else if (err.Error === '5') {
+            Snackbar.show({
+            actionTextColor: '#fff',
+            backgroundColor: '#e7515a',
+            text: err.ErrMsg,
+            duration: 5000,
+            pos: 'top-center',
+            });
+        } else {
+            Snackbar.show({
+            actionTextColor: '#fff',
+            backgroundColor: '#e7515a',
+            text: err.errmsg,
+            duration: 5000,
+            pos: 'top-center',
+            });
         }
     }
 
@@ -126,6 +165,8 @@
                 successBar(msg)
 
             } catch (e){
+                errHandler(e);
+
                 console.log(e)
             }
         })
