@@ -99,6 +99,10 @@
         .then(() => {
             try {
                 liff.getProfile()
+                .then(profile => {})
+                .catch((err) => {
+                console.log('error', err);
+                });
 
                 var data = {
                     accessToken: liff.getAccessToken()
