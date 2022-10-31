@@ -45,7 +45,7 @@
     }
 
     function errHandler(err) {
-        loader.classList.add('d-none');
+        document.getElementById('load_screen').classList.add('d-none');
         if (err.error === '1') {
             (document.querySelector('#errorModal p')).innerHTML =
             err.errmsg;
