@@ -7,36 +7,100 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="snackbar/snackbar.min.css"/>
 
 
+    <script src="snackbar/snackbar.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
     <script>
-        // $(document).ready(function () {
-        //     // Using a Promise object
-        //     liff.init({
-        //         liffId: '1607718325-8lN5k6oL' // Use own liffId
-        //     })
-        //     .then(() => {
-        //         // Start to use liff's api
-        //         liff.getProfile()
-        //         .then(profile => {
-        //             liff.openWindow({
-        //             url: "https://這邊改自己的domain/sayhi/"+profile.displayName,
-        //             });
-        //             liff.closeWindow();  //關閉視窗
-        //         })
-        //         .catch((err) => {
-        //         console.log('error', err);
-        //         });
+        function errHandler(err) {
+            document.getElementById('load_screen').classList.add('d-none');
+            
+            Snackbar.show({
+                actionTextColor: '#fff',
+                backgroundColor: '#e7515a',
+                text: err.errmsg ?? err.message,
+                duration: 5000,
+                pos: 'top-center',
+                });
+        }
 
-        //     })
-        //     .catch((err) => {
-        //         // Error happens during initialization
-        //         console.log(err.code, err.message);
-        //     });
-        // });
+        function successBar(msg) {
+            Snackbar.show({
+                actionTextColor: '#fff',
+                backgroundColor: '#4361ee',
+                text: msg,
+                duration: 5000,
+                pos: 'top-center',
+            });
+        }
+
+
+        const fetchCurried = function (url) {
+            return function (obj) {
+                return new Promise((resolve, reject) => {
+                    $.post(url, obj || {}).done((data) => {
+                        if (
+                            Object.prototype.hasOwnProperty.call(data, 'error') ||
+                            Object.prototype.hasOwnProperty.call(data, 'Error')
+                        ) {
+                            reject(data);
+                        } else {
+                            resolve(data);
+                        }
+                    });
+                });
+            };
+        };
+
+        function addPoint() {
+            try {
+                const o = {
+                    uID : document.getElementById("uID").innerHTML,
+                    eventComment: document.getElementById("eventComment").innerHTML,
+                    eventName: document.getElementById("eventName").innerHTML,
+                    eventDate: document.querySelector('#eventDate').value,
+                    eventMember: ''
+                }
+                
+                const res = fetchCurried('/rent/list')({
+                    pa: JSON.stringify(o),
+                });
+
+                console.log(o)
+                // console.log(res)
+
+                document.getElementById('load_screen').classList.add('d-none');
+            } catch (error) {
+                errHandler(error);
+            }
+        }
+
+        $(document).ready(function () {
+            document.getElementById('load_screen').classList.remove('d-none');
+
+            liff.init({
+                liffId: '1657271223-2bLxz75P' // Use own liffId
+            })
+            .then(async () => checkIsLogin(liff))
+            .then(() => {
+                try {
+                    var context = liff.getContext();
+
+                    document.getElementById("uID").innerHTML = context.userId;
+                    var msg = "uID: " + context.userId
+                    successBar(msg)
+
+                } catch (e){
+                    errHandler(e);
+                }
+            })
+            .catch((err) => {
+                console.log(err.code, err.message);
+            });
+        });
     </script>
 
     <style>
@@ -106,6 +170,14 @@
 </head>
 
 <body>
+    <div id="load_screen">
+        <div class="loader">
+            <div class="loader-content">
+                <div class="spinner-grow align-self-center"></div>
+            </div>
+        </div>
+    </div>
+    <span class="d-none" id="uID"></span>
     <header class="nav-tabs navbar py-3">
         <nav class="container-fluid justify-content-start">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -133,7 +205,7 @@
                     <label for="Name" class="col-3 col-form-label">名稱</label>
                     
                     <div class="input-col">
-                        <input class="form-control" name="Name" id="Name" type="text" value="測試活動名" />
+                        <input class="form-control" name="Name" id="eventName" type="text" value="" />
                     </div>
                 </div>
             </div>
@@ -149,7 +221,7 @@
                     <label for="Date" class="col-3 col-form-label">日期</label>
                     
                     <div class="input-col">
-                        <input class="form-control" name="Date" id="Date" type="text" value="2022/10/11" />
+                        <input class="form-control" name="Date" id="eventDate" type="text" />
                     </div>
                 </div>
             </div>
@@ -165,7 +237,7 @@
                     <label for="" class="col-3 col-form-label">參與人</label>
 
                     <div class="input-col">
-                        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                        <select class="js-example-basic-multiple" name="eventMember[]" id="eventMember" multiple="multiple">
                             <option value="AL">Alabama</option>
                             <option value="AL1">Alabama1</option>
                             <option value="AL2">Alabama2</option>
@@ -187,7 +259,7 @@
                     <label for="Comment" class="col-3 col-form-label">備註</label>
                     
                     <div class="col-9">
-                        <textarea name="Comment" id="Comment" class="form-control" cols="30" rows="3"></textarea>
+                        <textarea name="Comment" id="eventComment" class="form-control" cols="30" rows="3"></textarea>
                     </div>
                 </div>
             </div>
