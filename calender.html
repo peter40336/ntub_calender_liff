@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
     <script src="snackbar/snackbar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <script>
 
     function checkIsLogin (liff) {
@@ -46,41 +47,14 @@
 
     function errHandler(err) {
         document.getElementById('load_screen').classList.add('d-none');
-        if (err.error === '1') {
-            (document.querySelector('#errorModal p')).innerHTML =
-            err.errmsg;
-            $('#errorModal')
-            .modal({
-                backdrop: 'static',
-                keyboard: false,
-            })
-            .modal('show');
-        } else if (err.error === '5') {
-            (document.querySelector('#loginModal p')).innerHTML =
-            err.errmsg;
-            $('#loginModal')
-            .modal({
-                backdrop: 'static',
-                keyboard: false,
-            })
-            .modal('show');
-        } else if (err.Error === '5') {
-            Snackbar.show({
-            actionTextColor: '#fff',
-            backgroundColor: '#e7515a',
-            text: err.ErrMsg ?? err.message,
-            duration: 5000,
-            pos: 'top-center',
-            });
-        } else {
-            Snackbar.show({
+        
+        Snackbar.show({
             actionTextColor: '#fff',
             backgroundColor: '#e7515a',
             text: err.errmsg ?? err.message,
             duration: 5000,
             pos: 'top-center',
             });
-        }
     }
 
     function successBar(msg) {
@@ -120,36 +94,6 @@
         .then(async () => checkIsLogin(liff))
         .then(() => {
             try {
-                liff.getProfile()
-                .then(profile => {
-                    console.log(profile)
-                })
-                .catch((err) => {
-                console.log('error', err);
-                });
-
-                var data = {
-                    accessToken: liff.getAccessToken()
-                };
-                console.log(data)
-                
-                // liff.getAccessToken().then((e) => {
-                //     console.log("getAccessToken", e)
-                // })
-
-                const idToken = liff.getIDToken()
-                console.log("getIDToken", idToken) 
-                // liff.getIDToken().then((e) => {
-                //     console.log("getIDToken", e)
-                // })
-
-                const idToken2 = liff.getDecodedIDToken();
-                // liff.getDecodedIDToken().then((e) => {
-                //     console.log("getDecodedIDToken", e)
-                // })
-                console.log(idToken2) // print decoded idToken object
-
-                // console.log("getContext", liff.getContext())
                 var context = liff.getContext();
                 var getUrlString = location.href;
                 var url = new URL(getUrlString);
@@ -166,8 +110,6 @@
 
             } catch (e){
                 errHandler(e);
-
-                console.log(e)
             }
         })
         .then(() => {
@@ -175,7 +117,6 @@
         })
         .then(() => {
             try {
-
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth',
@@ -221,8 +162,7 @@
                 });
                 calendar.addEvent({
                     title: 'Lunch4',
-                    start: '2022-10-08T16:30:00',
-                    end: '2022-10-08T17:30:00',
+                    start: '2022-10-08',
                     extendedProps: {
                         description: 'Test 1'
                     },
@@ -231,9 +171,6 @@
             } catch (e) {
                 console.log(e)
             }
-            // document.addEventListener('DOMContentLoaded', function() {
-                
-            // });
         })
         .catch((err) => {
             console.log(err.code, err.message);
@@ -331,8 +268,5 @@
         <div class="pt-4 container">
             <div id='calendar'></div>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-
     </body>
 </html>
