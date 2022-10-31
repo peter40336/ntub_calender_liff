@@ -49,16 +49,26 @@
                 roomID : document.getElementById("rID").innerHTML,
                 groupID : document.getElementById("gID").innerHTML,
             }
-            const res = fetchCurried('/rent/list')({
-                pa: JSON.stringify(o),
-            });
+            // const res = fetchCurried('/rent/list')({
+            //     pa: JSON.stringify(o),
+            // });
 
             console.log(o)
-            console.log(res)
+            // console.log(res)
             document.getElementById('load_screen').classList.add('d-none');
         } catch (error) {
             // errHandler(error);
         }
+    }
+
+    function successBar(msg) {
+        Snackbar.show({
+            actionTextColor: '#fff',
+            backgroundColor: '#4361ee',
+            text: msg,
+            duration: 5000,
+            pos: 'top-center',
+        });
     }
 
 
@@ -122,7 +132,8 @@
                 document.getElementById("gID").innerHTML = gID;
                 document.getElementById("rID").innerHTML = rID;
                 document.getElementById("uID").innerHTML = profile.userId;
-                successBar("gID: " + gID + "gID: " + rID + "uID: " + profile.userId)
+                var msg = "gID: " + gID + "gID: " + rID + "uID: " + profile.userId
+                successBar(msg)
 
             } catch (e){
                 console.log(e)
@@ -136,15 +147,6 @@
         });
     });
 
-    function successBar(msg) {
-        Snackbar.show({
-            actionTextColor: '#fff',
-            backgroundColor: '#4361ee',
-            text: msg,
-            duration: 5000,
-            pos: 'top-center',
-        });
-    }
 </script>
 
 <style>
