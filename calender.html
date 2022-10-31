@@ -98,6 +98,7 @@
         .then(async () => checkIsLogin(liff))
         .then(() => {
             try {
+                liff.getProfile()
 
                 var data = {
                     accessToken: liff.getAccessToken()
