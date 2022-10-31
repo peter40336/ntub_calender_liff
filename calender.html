@@ -35,7 +35,7 @@
         }
     }
 
-    async function calendarPoint() {
+    function calendarPoint() {
         
         try {
             const o = {
@@ -43,7 +43,7 @@
                 roomID : document.getElementById("rID").innerHTML,
                 groupID : document.getElementById("gID").innerHTML,
             }
-            const res = await fetchCurried('/rent/list')({
+            const res = fetchCurried('/rent/list')({
                 pa: JSON.stringify(o),
             });
 
