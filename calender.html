@@ -99,7 +99,9 @@
         .then(() => {
             try {
                 liff.getProfile()
-                .then(profile => {})
+                .then(profile => {
+                    console.log(profile)
+                })
                 .catch((err) => {
                 console.log('error', err);
                 });
