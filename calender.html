@@ -127,8 +127,8 @@
                 // })
                 console.log(idToken2) // print decoded idToken object
 
-                console.log("getContext", liff.getContext())
-
+                // console.log("getContext", liff.getContext())
+                var context = liff.getContext();
                 var getUrlString = location.href;
                 var url = new URL(getUrlString);
                 url.searchParams.get('userId')
@@ -138,8 +138,8 @@
 
                 document.getElementById("gID").innerHTML = gID;
                 document.getElementById("rID").innerHTML = rID;
-                document.getElementById("uID").innerHTML = profile.userId;
-                var msg = "gID: " + gID + "gID: " + rID + "uID: " + profile.userId
+                document.getElementById("uID").innerHTML = context.userId;
+                var msg = "gID: " + gID + "gID: " + rID + "uID: " + context.userId
                 successBar(msg)
 
             } catch (e){
