@@ -68,7 +68,7 @@
             Snackbar.show({
             actionTextColor: '#fff',
             backgroundColor: '#e7515a',
-            text: err.ErrMsg,
+            text: err.ErrMsg ?? err.message,
             duration: 5000,
             pos: 'top-center',
             });
@@ -76,7 +76,7 @@
             Snackbar.show({
             actionTextColor: '#fff',
             backgroundColor: '#e7515a',
-            text: err.errmsg,
+            text: err.errmsg ?? err.message,
             duration: 5000,
             pos: 'top-center',
             });
