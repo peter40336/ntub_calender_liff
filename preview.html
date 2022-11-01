@@ -57,17 +57,14 @@
 
         function previewPoint() {
             try {
-                const o = {
-                    eventID : document.getElementById("eventID").innerHTML,
-                    uID : document.getElementById("uID").innerHTML
-                }
+                eventID = document.getElementById("eventID").innerHTML;
+                uID = document.getElementById("uID").innerHTML;
                 
-                const res = fetchCurried('/rent/list')({
-                    pa: JSON.stringify(o),
-                });
+                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/${uID}/${eventID}`)();
 
-                console.log(o)
-                // console.log(res)
+                
+
+                console.log(res)
 
                 document.getElementById('load_screen').classList.add('d-none');
             } catch (error) {
