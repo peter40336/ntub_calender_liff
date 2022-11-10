@@ -74,6 +74,11 @@
 
                 console.log(res)
 
+                for (let i = 0; i < res.length; i++) {
+                    const element = res[i];
+                    console.log(element)
+                }
+
                 document.getElementById('load_screen').classList.add('d-none');
             } catch (error) {
                 errHandler(error);
