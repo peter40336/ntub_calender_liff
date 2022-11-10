@@ -68,7 +68,7 @@
                 eventID = document.getElementById("eventID").innerHTML;
                 uID = document.getElementById("uID").innerHTML;
                 
-                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/${uID}/${eventID}`)();
+                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`)();
 
                 
 
