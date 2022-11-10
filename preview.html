@@ -69,11 +69,15 @@
                 uID = document.getElementById("uID").innerHTML;
                 
                 const res = fetchCurried(`https://cors-anywhere.herokuapp.com/https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`)().then((v) => {
-                    console.log("123")
-                    console.log(v)
                     var result = v[0]
                     
-                    document.getElementById("title").innerHTML = result.title
+                    document.getElementById("title").value = result.title
+                    document.getElementById("description").value = result.description
+                    
+                    if (!!!result.is_group) {
+                        $(".members-row").hide()
+                    }
+
     // "description": "\u672a\u8a2d\u5b9a\u6558\u8ff0", 
     // "group_id": null, 
     // "id": 1, 
@@ -274,10 +278,10 @@
             </div>
         </div>
 
-        <div class="space-row">
+        <div class="space-row members-row">
         </div>
 
-        <div class="home-row">
+        <div class="home-row members-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <!-- TODO 下拉 -->
@@ -304,10 +308,10 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <div class="row w-100">
-                    <label for="Comment" class="col-3 col-form-label">備註</label>
+                    <label for="description" class="col-3 col-form-label">備註</label>
                     
                     <div class="col-9">
-                        <textarea name="Comment" id="Comment" class="form-control" cols="30" rows="3" readonly></textarea>
+                        <textarea name="description" id="description" class="form-control" cols="30" rows="3" readonly></textarea>
                     </div>
                 </div>
             </div>
