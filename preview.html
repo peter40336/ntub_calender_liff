@@ -71,6 +71,25 @@
                 const res = fetchCurried(`https://cors-anywhere.herokuapp.com/https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`)().then((v) => {
                     console.log("123")
                     console.log(v)
+                    var result = v[0]
+                    
+                    document.getElementById("title").innerHTML = result.title
+    // "description": "\u672a\u8a2d\u5b9a\u6558\u8ff0", 
+    // "group_id": null, 
+    // "id": 1, 
+    // "is_group": false, 
+    // "members": [
+    //   {
+    //     "event_id": 1, 
+    //     "id": 1, 
+    //     "line_id": "Ub7db5580c5599bfa62be5aa51847ae1d", 
+    //     "user_id": 1
+    //   }
+    // ], 
+    // "start_time": "Tue, 20 Sep 2022 09:00:00 GMT", 
+    // "title": "\u8a18\u5f97\u5403\u85e5", 
+    // "type_id": 2, 
+    // "type_name": "\u63d0\u9192"
                 });
 
                 
@@ -230,10 +249,10 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <div class="row w-100">
-                    <label for="Name" class="col-3 col-form-label">名稱</label>
+                    <label for="title" class="col-3 col-form-label">名稱</label>
                     
                     <div class="input-col">
-                        <input class="form-control" name="Name" id="Name" type="text" value="測試活動名" readonly />
+                        <input class="form-control" name="title" id="title" type="text" readonly />
                     </div>
                 </div>
             </div>
