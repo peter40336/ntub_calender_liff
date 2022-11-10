@@ -68,7 +68,10 @@
                 eventID = document.getElementById("eventID").innerHTML;
                 uID = document.getElementById("uID").innerHTML;
                 
-                const res = fetchCurried(`https://cors-anywhere.herokuapp.com/https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`)();
+                const res = fetchCurried(`https://cors-anywhere.herokuapp.com/https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`).then((v) => {
+                    console.log("123")
+                    console.log(v)
+                });
 
                 
 
