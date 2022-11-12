@@ -15,6 +15,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
     <script>
+        function checkIsLogin (liff) {
+            if (liff.isLoggedIn()) {
+                liff.getProfile()
+            } else {
+                liff.login();
+            }
+        }
+
         function errHandler(err) {
             document.getElementById('load_screen').classList.add('d-none');
             
@@ -54,6 +62,19 @@
                 });
             };
         };
+
+        function addClick() {
+            const o = {
+                uID : document.getElementById("uID").innerHTML,
+                eventComment: document.getElementById("eventComment").innerHTML,
+                eventName: document.getElementById("eventName").innerHTML,
+                eventDate: document.querySelector('#eventDate').value,
+                eventMember: ''
+            }
+
+            
+        }
+
 
         function addPoint() {
             try {
@@ -96,6 +117,9 @@
                 } catch (e){
                     errHandler(e);
                 }
+            })
+            .then(() => {
+                document.querySelector('#addBtn').addEventListener('click', addClick);
             })
             .catch((err) => {
                 console.log(err.code, err.message);
@@ -187,7 +211,7 @@
             </svg>
             <span class="fs-1 px-4">行事曆</span>
             <span class="px-2 save-btn-span">
-                <button class="save-btn">
+                <button class="save-btn" id="addBtn">
                     Add
                 </button>
             </span>
