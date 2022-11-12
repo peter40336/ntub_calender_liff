@@ -68,7 +68,7 @@
                 eventID = document.getElementById("eventID").innerHTML;
                 uID = document.getElementById("uID").innerHTML;
                 
-                const res = fetchCurried(`https://cors-anywhere.herokuapp.com/https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`)().then((v) => {
+                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`)().then((v) => {
                     var result = v[0]
                     
                     document.getElementById("title").value = result.title
@@ -95,15 +95,6 @@
     // "type_id": 2, 
     // "type_name": "\u63d0\u9192"
                 });
-
-                
-
-                console.log(res)
-
-                for (let i = 0; i < res.length; i++) {
-                    const element = res[i];
-                    console.log(element)
-                }
 
                 document.getElementById('load_screen').classList.add('d-none');
             } catch (error) {
