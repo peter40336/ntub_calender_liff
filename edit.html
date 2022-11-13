@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="snackbar/snackbar.min.css"/>\
+    <link rel="stylesheet" type="text/css" href="snackbar/snackbar.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
 
@@ -91,6 +91,8 @@
                     
                     document.getElementById("title").value = result.title
                     document.getElementById("description").value = result.description
+
+                    $("#datetimepicker").flatpickr()
                     if (result.start_time != null) {
                         var _start_time = new Date(result.start_time)
                         $('#datetimepicker').val(_start_time);
@@ -225,6 +227,25 @@
         div#load_screen .loader {
             width: 100vw;
         }
+        
+        .save-btn-span {
+            flex: 1;
+            text-align: right;
+        }
+
+        .save-btn {
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+            border: solid 1px rgba(0, 0, 0, 0.2);
+            background-color: #ae9e71;
+            font-size: 1.3rem;
+            letter-spacing: 0.36px;
+            color: #fff;
+        }
+
 
     </style>
 
