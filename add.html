@@ -157,6 +157,7 @@
                 var type_id = url.searchParams.get('typeID')
                 document.getElementById("type_id").innerHTML = type_id
 
+                $(".members-row").hide() 
 
                 if (type_id == null || type_id == "") {
                     errHandler("請確認您的資料");
