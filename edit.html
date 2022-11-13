@@ -31,7 +31,7 @@
             Snackbar.show({
                 actionTextColor: '#fff',
                 backgroundColor: '#e7515a',
-                text: err.errmsg ?? err.message,
+                text: err.errmsg ?? err.message ?? err,
                 duration: 5000,
                 pos: 'top-center',
                 });
@@ -76,15 +76,17 @@
                 }
 
                 var title = $("#title").val()
-                var _start_time = $("datetimepicker").val()
+                var _start_time = $("#datetimepicker").val()
                 var description = $("#description").val()
 
                 if (title == null || title == "" || title == undefined) {
                     errHandler("名稱不可為空");
+                    return
                 }
 
                 if (_start_time == null || _start_time == "" || _start_time == undefined) {
                     errHandler("提醒時間不可為空");
+                    return
                 }
 
                 var start_time = new Date(_start_time).toISOString();
