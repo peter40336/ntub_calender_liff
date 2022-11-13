@@ -109,6 +109,7 @@
                         }
                         
                         successBar("新增成功")
+                        document.getElementById("save-btn").innerHTML = "更新"
                     });
                 } else {
                     const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
