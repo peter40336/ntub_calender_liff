@@ -67,33 +67,42 @@
             try {
                 eventID = document.getElementById("eventID").innerHTML;
                 uID = document.getElementById("uID").innerHTML;
-                
-                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/retrieve/${uID}/${eventID}`)().then((v) => {
-                    var result = v[0]
+                if (eventID == null || eventID == "" || uID == null || uID == "") {
+                    
+                    errHandler("請確認您的資料");
+                    return
+                }
+
+
+                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/list/${userId}?event_id=${eventID}`)().then((v) => {
+                    if (v.status != 200) {
+                        errHandler(v.error_msg)
+                        return
+                    }
+
+                    if (v.data.length == 0) {
+                        errHandler("請確認您的資料")
+                        return
+                    }
+
+                    var result = v.data[0]
                     
                     document.getElementById("title").value = result.title
-                    document.getElementById("description").value = result.description
-                    
+                    document.getElementById("description").value = result.description)
+                    var _start_time = new Date(result.start_time).toISOString().substr(0, 10)
+                    document.getElementById("start_time").value = result.start_time
+
                     if (!!!result.is_group) {
                         $(".members-row").hide()
                     }
 
-    // "description": "\u672a\u8a2d\u5b9a\u6558\u8ff0", 
-    // "group_id": null, 
-    // "id": 1, 
-    // "is_group": false, 
-    // "members": [
-    //   {
-    //     "event_id": 1, 
-    //     "id": 1, 
-    //     "line_id": "Ub7db5580c5599bfa62be5aa51847ae1d", 
-    //     "user_id": 1
-    //   }
-    // ], 
-    // "start_time": "Tue, 20 Sep 2022 09:00:00 GMT", 
-    // "title": "\u8a18\u5f97\u5403\u85e5", 
-    // "type_id": 2, 
-    // "type_name": "\u63d0\u9192"
+                    if(result.type_id == 1) {
+                        document.getElementById("pageTitle").innerHTML = "行事曆"
+                    } else if(result.type_id == 2) {
+                        document.getElementById("pageTitle").innerHTML = "提醒"
+                    } else {
+                        errHandler("請確認您的資料");
+                    }
                 });
 
                 document.getElementById('load_screen').classList.add('d-none');
@@ -232,7 +241,7 @@
                 <path fill-rule="evenodd"
                     d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
             </svg>
-            <span class="fs-1 px-4">行事曆</span>
+            <span class="fs-1 px-4" id="pageTitle">行事曆</span>
         </nav>
     </header>
 
@@ -260,7 +269,7 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <div class="row w-100">
-                    <label for="Date" class="col-3 col-form-label">日期</label>
+                    <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
                         <input class="form-control" name="Date" id="Date" type="text" value="2022/10/11" readonly />
