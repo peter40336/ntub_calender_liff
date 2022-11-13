@@ -8,11 +8,13 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="snackbar/snackbar.min.css"/>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
 
     <script src="snackbar/snackbar.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
         function checkIsLogin (liff) {
@@ -22,14 +24,14 @@
                 liff.login();
             }
         }
-
+        
         function errHandler(err) {
             document.getElementById('load_screen').classList.add('d-none');
             
             Snackbar.show({
                 actionTextColor: '#fff',
                 backgroundColor: '#e7515a',
-                text: err.errmsg ?? err.message,
+                text: err.errmsg ?? err.message ?? err,
                 duration: 5000,
                 pos: 'top-center',
                 });
@@ -63,45 +65,64 @@
             };
         };
 
-        function addClick() {
+        function addClick(params) {
             try {
-                const o = {
-                    uID : document.getElementById("uID").innerHTML,
-                    eventComment: document.getElementById("eventComment").innerHTML,
-                    eventName: document.getElementById("eventName").innerHTML,
-                    eventDate: document.querySelector('#eventDate').value,
-                    eventMember: ''
+                var eventID = document.getElementById("eventID").innerHTML;
+                var uID = document.getElementById("uID").innerHTML;
+                var type_id = document.getElementById("type_id").innerHTML;
+                var isAdd = eventID == null || eventID == "";
+
+                if (uID == null || uID == "") {
+                    
+                    errHandler("請確認您的資料");
+                    return
                 }
 
-                    
-                const res = fetchCurried('/rent/list')({
-                        pa: JSON.stringify(o),
+                var title = $("#title").val()
+                var _start_time = $("#datetimepicker").val()
+                var description = $("#description").val()
+
+                if (title == null || title == "" || title == undefined) {
+                    errHandler("名稱不可為空");
+                    return
+                }
+
+                if (_start_time == null || _start_time == "" || _start_time == undefined) {
+                    errHandler("提醒時間不可為空");
+                    return
+                }
+
+                var start_time = new Date(_start_time).toISOString();
+
+                if (isAdd) {
+                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)({
+                        type_id : type_id,
+                        title :title,
+                        description:description,
+                        start_time: start_time
+                    }).then((v) => {
+                        if (v.status != 200) {
+                            errHandler(v.error_msg)
+                            return
+                        }
+                        
+                        successBar("更新成功")
                     });
-
-                    
-            } catch (error) {
-                errHandler(error);
-            }
-            
-        }
-
-
-        function addPoint() {
-            try {
-                const o = {
-                    uID : document.getElementById("uID").innerHTML,
-                    eventComment: document.getElementById("eventComment").innerHTML,
-                    eventName: document.getElementById("eventName").innerHTML,
-                    eventDate: document.querySelector('#eventDate').value,
-                    eventMember: ''
+                } else {
+                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
+                        type_id : type_id,
+                        title :title,
+                        description:description,
+                        start_time: start_time
+                    }).then((v) => {
+                        if (v.status != 200) {
+                            errHandler(v.error_msg)
+                            return
+                        }
+                        
+                        successBar("更新成功")
+                    });
                 }
-                
-                const res = fetchCurried('/rent/list')({
-                    pa: JSON.stringify(o),
-                });
-
-                console.log(o)
-                // console.log(res)
 
                 document.getElementById('load_screen').classList.add('d-none');
             } catch (error) {
@@ -109,8 +130,11 @@
             }
         }
 
+
         $(document).ready(function () {
             document.getElementById('load_screen').classList.remove('d-none');
+
+            document.querySelector('#save-btn').addEventListener('click', editClick);
 
             liff.init({
                 liffId: '1657271223-veVzj6al' // Use own liffId
@@ -119,21 +143,36 @@
             .then(() => {
                 try {
                     var context = liff.getContext();
-
                     document.getElementById("uID").innerHTML = context.userId;
-                    // var msg = "uID: " + context.userId
-                    // successBar(msg)
                 } catch (e){
                     errHandler(e);
                 }
             })
             .then(() => {
-                document.querySelector('#addBtn').addEventListener('click', addClick);
+                var uID = document.getElementById("uID").innerHTML;
+                var getUrlString = location.href;
+                var url = new URL(getUrlString);
+                var type_id = url.searchParams.get('typeID')
+
+
+                if (type_id == null || type_id == "") {
+                    errHandler("請確認您的資料");
+                    return
+                }
+
+                if (type_id == 1 || type_id == "1") {
+                    document.getElementById("pageTitle").innerHTML = "行事曆"
+                } else if (type_id == 2 || type_id == "2") {
+                    document.getElementById("pageTitle").innerHTML = "提醒"
+                }
+
+                $("#datetimepicker").flatpickr()
             })
             .catch((err) => {
                 console.log(err.code, err.message);
             });
         });
+
     </script>
 
     <style>
@@ -180,24 +219,6 @@
             flex: 1 1 0;
         }
 
-        .save-btn-span {
-            flex: 1;
-            text-align: right;
-        }
-
-        .save-btn {
-            justify-content: center;
-            -webkit-box-align: center;
-            align-items: center;
-            border-radius: 8px;
-            box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
-            border: solid 1px rgba(0, 0, 0, 0.2);
-            background-color: #ae9e71;
-            font-size: 1.3rem;
-            letter-spacing: 0.36px;
-            color: #fff;
-        }
-
         div#load_screen {
             background: #ecefff;
             opacity: 1;
@@ -228,6 +249,26 @@
         div#load_screen .loader {
             width: 100vw;
         }
+
+        .save-btn-span {
+            flex: 1;
+            text-align: right;
+        }
+
+        .save-btn {
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+            border: solid 1px rgba(0, 0, 0, 0.2);
+            background-color: #ae9e71;
+            font-size: 1.3rem;
+            letter-spacing: 0.36px;
+            color: #fff;
+        }
+
+
     </style>
 
 
@@ -241,7 +282,9 @@
             </div>
         </div>
     </div>
+    <span class="d-none" id="eventID"></span>
     <span class="d-none" id="uID"></span>
+    <span class="d-none" id="type_id"></span>
     <header class="nav-tabs navbar py-3">
         <nav class="container-fluid justify-content-start">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -249,12 +292,13 @@
                 <path fill-rule="evenodd"
                     d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
             </svg>
-            <span class="fs-1 px-4">行事曆</span>
+            <span class="fs-1 px-4" id="pageTitle">行事曆</span>
             <span class="px-2 save-btn-span">
-                <button class="save-btn" id="addBtn">
-                    Add
+                <button id="save-btn" class="save-btn">
+                    Save
                 </button>
             </span>
+
         </nav>
     </header>
 
@@ -266,10 +310,10 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <div class="row w-100">
-                    <label for="Name" class="col-3 col-form-label">名稱</label>
+                    <label for="title" class="col-3 col-form-label">名稱</label>
                     
                     <div class="input-col">
-                        <input class="form-control" name="Name" id="eventName" type="text" value="" />
+                        <input class="form-control" name="title" id="title" type="text" />
                     </div>
                 </div>
             </div>
@@ -282,29 +326,30 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <div class="row w-100">
-                    <label for="Date" class="col-3 col-form-label">日期</label>
+                    <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
-                        <input class="form-control" name="Date" id="eventDate" type="text" />
+                        <input class="form-control" id="datetimepicker" class="flatpickr" data-enable-time=true>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="space-row">
+        <div class="space-row members-row">
         </div>
 
-        <div class="home-row">
+        <div class="home-row members-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
+                <!-- TODO 下拉 -->
                 <div class="row w-100">
                     <label for="" class="col-3 col-form-label">參與人</label>
+                    
+                    
 
                     <div class="input-col">
-                        <select class="js-example-basic-multiple" name="eventMember[]" id="eventMember" multiple="multiple">
+                        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
                             <option value="AL">Alabama</option>
-                            <option value="AL1">Alabama1</option>
-                            <option value="AL2">Alabama2</option>
                             <option value="WY">Wyoming</option>
                         </select>
                     </div>
@@ -320,17 +365,16 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <div class="row w-100">
-                    <label for="Comment" class="col-3 col-form-label">備註</label>
+                    <label for="description" class="col-3 col-form-label">備註</label>
                     
                     <div class="col-9">
-                        <textarea name="Comment" id="eventComment" class="form-control" cols="30" rows="3"></textarea>
+                        <textarea name="description" id="description" class="form-control" cols="30" rows="3"></textarea>
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
@@ -342,12 +386,9 @@
             theme: "classic",
             width: '100%'
         });
+        $(".js-example-basic-multiple").prop("disabled", true);
     });
     </script>
 </body>
-<style>
-    .row {
-        padding-right: 0px !important;
-    }
-</style>
+
 </html>
