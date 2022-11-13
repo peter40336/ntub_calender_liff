@@ -72,6 +72,9 @@
                 var type_id = document.getElementById("type_id").innerHTML;
                 var group_id = document.getElementById("group_id").innerHTML;
                 var isAdd = eventID == null || eventID == "";
+                if (group_id == "") {
+                    group_id = null
+                }
 
                 if (uID == null || uID == "") {
                     
@@ -113,6 +116,7 @@
                         }
 
                         var result = v.data[0]
+
 
                         
                         successBar("新增成功")
