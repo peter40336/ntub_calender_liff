@@ -89,12 +89,19 @@
                     
                     document.getElementById("title").value = result.title
                     document.getElementById("description").value = result.description
-                    var _start_time = new Date(result.start_time).toISOString().substr(0, 10)
-                    document.getElementById("start_time").value = result.start_time
-
-                    if (!!!result.is_group) {
-                        $(".members-row").hide()
+                    var _start_time = '尚未設定'
+                    if (result.start_time != null) {
+                        _start_time = new Date(result.start_time).toISOString().substr(0, 10)
                     }
+
+                    document.getElementById("start_time").value = _start_time
+
+                    // TODO 補上人名
+                    $(".members-row").hide() 
+
+                    // if (!!!result.is_group) {
+                    //     $(".members-row").hide()
+                    // }
 
                     if(result.type_id == 1) {
                         document.getElementById("pageTitle").innerHTML = "行事曆"
