@@ -94,7 +94,11 @@
 
 
 
-                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)().then((v) => {
+                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
+                        title :title,
+                        description:description,
+                        start_time: start_time
+                    }).then((v) => {
                     if (v.status != 200) {
                         errHandler(v.error_msg)
                         return
