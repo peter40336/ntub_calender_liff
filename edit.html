@@ -8,11 +8,13 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="snackbar/snackbar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 
 
     <script src="snackbar/snackbar.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
 
     <script>
         function checkIsLogin (liff) {
@@ -87,14 +89,16 @@
 
                     var result = v.data[0]
                     
+                    $('#datetimepicker').datetimepicker();
+
                     document.getElementById("title").value = result.title
                     document.getElementById("description").value = result.description
-                    var _start_time = '尚未設定'
-                    if (result.start_time != null) {
-                        _start_time = new Date(result.start_time).toISOString().substr(0, 10)
-                    }
+                    // var _start_time = '尚未設定'
+                    // if (result.start_time != null) {
+                    //     _start_time = new Date(result.start_time).toISOString().substr(0, 10)
+                    // }
 
-                    document.getElementById("start_time").value = _start_time
+                    // document.getElementById("start_time").value = _start_time
 
                     // TODO 補上人名
                     $(".members-row").hide() 
@@ -285,7 +289,7 @@
                     <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
-                        <input class="form-control" name="Date" id="Date" type="text" value="2022/10/11" readonly />
+                        <input id="datetimepicker" type="text" >
                     </div>
                 </div>
             </div>
