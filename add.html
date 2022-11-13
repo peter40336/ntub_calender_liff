@@ -64,14 +64,24 @@
         };
 
         function addClick() {
-            const o = {
-                uID : document.getElementById("uID").innerHTML,
-                eventComment: document.getElementById("eventComment").innerHTML,
-                eventName: document.getElementById("eventName").innerHTML,
-                eventDate: document.querySelector('#eventDate').value,
-                eventMember: ''
-            }
+            try {
+                const o = {
+                    uID : document.getElementById("uID").innerHTML,
+                    eventComment: document.getElementById("eventComment").innerHTML,
+                    eventName: document.getElementById("eventName").innerHTML,
+                    eventDate: document.querySelector('#eventDate').value,
+                    eventMember: ''
+                }
 
+                    
+                const res = fetchCurried('/rent/list')({
+                        pa: JSON.stringify(o),
+                    });
+
+                    
+            } catch (error) {
+                errHandler(error);
+            }
             
         }
 
@@ -103,7 +113,7 @@
             document.getElementById('load_screen').classList.remove('d-none');
 
             liff.init({
-                liffId: '1657271223-2bLxz75P' // Use own liffId
+                liffId: '1657271223-veVzj6al' // Use own liffId
             })
             .then(async () => checkIsLogin(liff))
             .then(() => {
@@ -111,9 +121,8 @@
                     var context = liff.getContext();
 
                     document.getElementById("uID").innerHTML = context.userId;
-                    var msg = "uID: " + context.userId
-                    successBar(msg)
-
+                    // var msg = "uID: " + context.userId
+                    // successBar(msg)
                 } catch (e){
                     errHandler(e);
                 }
