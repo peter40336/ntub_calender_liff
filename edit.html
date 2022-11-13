@@ -7,14 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="snackbar/snackbar.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
-
+    <link rel="stylesheet" type="text/css" href="snackbar/snackbar.min.css"/>\
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
 
     <script src="snackbar/snackbar.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
         function checkIsLogin (liff) {
@@ -89,14 +89,11 @@
 
                     var result = v.data[0]
                     
-                    $('#datetimepicker').datetimepicker();
-
                     document.getElementById("title").value = result.title
                     document.getElementById("description").value = result.description
                     if (result.start_time != null) {
                         var _start_time = new Date(result.start_time)
                         $('#datetimepicker').val(_start_time);
-
                     }
 
                     // TODO 補上人名
@@ -288,7 +285,7 @@
                     <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
-                        <input id="datetimepicker" type="text" >
+                        <input id="datetimepicker" class=flatpickr data-date-format="Y-m-d">
                     </div>
                 </div>
             </div>
