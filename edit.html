@@ -65,6 +65,48 @@
             };
         };
 
+        function editClick(params) {
+            try {
+                eventID = document.getElementById("eventID").innerHTML;
+                uID = document.getElementById("uID").innerHTML;
+                if (eventID == null || eventID == "" || uID == null || uID == "") {
+                    
+                    errHandler("請確認您的資料");
+                    return
+                }
+
+                var title = $("#title").val()
+                var _start_time = $("datetimepicker").val()
+                var description = $("#description").val()
+
+                if (title == null || title == "" || title == undefined) {
+                    errHandler("名稱不可為空");
+                }
+
+                if (_start_time == null || _start_time == "" || _start_time == undefined) {
+                    errHandler("提醒時間不可為空");
+                }
+
+                var start_time = new Date(_start_time).toISOString();
+
+
+
+
+                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)().then((v) => {
+                    if (v.status != 200) {
+                        errHandler(v.error_msg)
+                        return
+                    }
+                    
+                    successBar("更新成功")
+                });
+
+                document.getElementById('load_screen').classList.add('d-none');
+            } catch (error) {
+                errHandler(error);
+            }
+        }
+
         function previewPoint() {
             try {
                 eventID = document.getElementById("eventID").innerHTML;
@@ -122,6 +164,8 @@
 
         $(document).ready(function () {
             document.getElementById('load_screen').classList.remove('d-none');
+
+            document.querySelector('#save-btn').addEventListener('click', editClick);
 
             liff.init({
                 liffId: '1657271223-3Gz7xDA1' // Use own liffId
@@ -227,7 +271,7 @@
         div#load_screen .loader {
             width: 100vw;
         }
-        
+
         .save-btn-span {
             flex: 1;
             text-align: right;
@@ -271,7 +315,7 @@
             </svg>
             <span class="fs-1 px-4" id="pageTitle">行事曆</span>
             <span class="px-2 save-btn-span">
-                <button class="save-btn">
+                <button id="save-btn" class="save-btn">
                     Save
                 </button>
             </span>
@@ -290,7 +334,7 @@
                     <label for="title" class="col-3 col-form-label">名稱</label>
                     
                     <div class="input-col">
-                        <input class="form-control" name="title" id="title" type="text" readonly />
+                        <input class="form-control" name="title" id="title" type="text" />
                     </div>
                 </div>
             </div>
@@ -306,7 +350,7 @@
                     <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
-                        <input id="datetimepicker" class=flatpickr data-enable-time=true>
+                        <input id="datetimepicker" class="flatpickr" data-enable-time=true>
                     </div>
                 </div>
             </div>
@@ -345,7 +389,7 @@
                     <label for="description" class="col-3 col-form-label">備註</label>
                     
                     <div class="col-9">
-                        <textarea name="description" id="description" class="form-control" cols="30" rows="3" readonly></textarea>
+                        <textarea name="description" id="description" class="form-control" cols="30" rows="3"></textarea>
                     </div>
                 </div>
             </div>
