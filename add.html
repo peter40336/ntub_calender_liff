@@ -154,6 +154,7 @@
                 var getUrlString = location.href;
                 var url = new URL(getUrlString);
                 var type_id = url.searchParams.get('typeID')
+                document.getElementById("type_id").innerHTML = type_id
 
 
                 if (type_id == null || type_id == "") {
@@ -289,6 +290,7 @@
     <span class="d-none" id="eventID"></span>
     <span class="d-none" id="uID"></span>
     <span class="d-none" id="type_id"></span>
+    <span class="d-none" id="group_id"></span>
     <header class="nav-tabs navbar py-3">
         <nav class="container-fluid justify-content-start">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
