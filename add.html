@@ -70,6 +70,7 @@
                 var eventID = document.getElementById("eventID").innerHTML;
                 var uID = document.getElementById("uID").innerHTML;
                 var type_id = document.getElementById("type_id").innerHTML;
+                var group_id = document.getElementById("group_id").innerHTML;
                 var isAdd = eventID == null || eventID == "";
 
                 if (uID == null || uID == "") {
@@ -99,7 +100,8 @@
                         type_id : type_id,
                         title :title,
                         description:description,
-                        start_time: start_time
+                        start_time: start_time,
+                        group_id: group_id
                     }).then((v) => {
                         if (v.status != 200) {
                             errHandler(v.error_msg)
