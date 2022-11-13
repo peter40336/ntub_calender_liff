@@ -158,6 +158,7 @@
 
                 if (type_id == null || type_id == "") {
                     errHandler("請確認您的資料");
+                    $("#save-btn").attr('disabled', true);
                     return
                 }
 
@@ -168,6 +169,8 @@
                 }
 
                 $("#datetimepicker").flatpickr()
+
+                document.getElementById('load_screen').classList.add('d-none');
             })
             .catch((err) => {
                 console.log(err.code, err.message);
