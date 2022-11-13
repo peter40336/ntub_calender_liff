@@ -107,9 +107,17 @@
                             errHandler(v.error_msg)
                             return
                         }
+                        if (v.data.length == 0) {
+                            errHandler("請確認您的資料")
+                            return
+                        }
+
+                        var result = v.data[0]
+
                         
                         successBar("新增成功")
                         document.getElementById("save-btn").innerHTML = "更新"
+                        document.getElementById("eventID").innerHTML = result.id
                     });
                 } else {
                     const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
