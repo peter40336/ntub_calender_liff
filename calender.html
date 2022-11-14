@@ -27,17 +27,34 @@
     function calendarPoint() {
         
         try {
-            const o = {
-                userID : document.getElementById("uID").innerHTML,
-                roomID : document.getElementById("rID").innerHTML,
-                groupID : document.getElementById("gID").innerHTML,
-            }
-            const res = fetchCurried('/rent/list')({
-                pa: JSON.stringify(o),
-            });
+            var userID = document.getElementById("uID").innerHTML
+            var groupID = document.getElementById("gID").innerHTML
+            var url = `https://line-calendar.sekixu.dev/event/list/${userID}`
 
-            console.log(o)
-            // console.log(res)
+            if (group_id != null && group_id != '') {
+                url += `?group_id=${groupID}`
+            }
+
+            var events = []
+            const res = fetchCurried(url)()
+                    .then((v) => {
+                        if (v.status != 200) {
+                            errHandler(v.error_msg)
+                            return
+                        }
+
+                        var result = v.data
+                        
+                        result.forEach(e => {
+                            if (e.start_time != null) {
+                                events.push({
+                                    title: e.title,
+                                    time: e.start_time
+                                })
+                            }
+                        });
+                    });;
+
 
             try {
                 var calendarEl = document.getElementById('calendar');
@@ -50,6 +67,13 @@
                     },
                     height: '600px',
                     locale: 'zh-tw',
+                });
+                events.forEach(event => {
+                    calendar.addEvent({
+                        title: event.title,
+                        start: event.time,
+                        end:  event.time,
+                    });
                 });
                 // calendar.addEvent({
                 //     title: 'Lunch1',
@@ -111,24 +135,21 @@
         document.getElementById('load_screen').classList.remove('d-none');
 
         liff.init({
-            liffId: '1657271223-2bLxz75P' // Use own liffId
+            liffId: '1657271223-yNdXKG7O' // Use own liffId
         })
         .then(async () => checkIsLogin(liff))
         .then(() => {
             try {
+
                 var context = liff.getContext();
                 var getUrlString = location.href;
                 var url = new URL(getUrlString);
-                url.searchParams.get('userId')
-                var gID = url.searchParams.get('groupId')
+                var groupID = url.searchParams.get('groupID')
 
-                var rID = url.searchParams.get('roomId')
-
-                document.getElementById("gID").innerHTML = gID;
-                document.getElementById("rID").innerHTML = rID;
+                document.getElementById("gID").innerHTML = groupID;
                 document.getElementById("uID").innerHTML = context.userId;
-                var msg = "gID: " + gID + "gID: " + rID + "uID: " + context.userId
-                successBar(msg)
+
+                
 
             } catch (e){
                 errHandler(e);
@@ -217,7 +238,6 @@
                 </div>
             </div>
         </div>
-        <span class="d-none" id="rID"></span>
         <span class="d-none" id="gID"></span>
         <span class="d-none" id="uID"></span>
         <header class="nav-tabs navbar py-3">
