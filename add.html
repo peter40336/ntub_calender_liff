@@ -98,14 +98,19 @@
 
                 var start_time = new Date(_start_time).toISOString();
 
+                var addObj = {
+                    type_id : type_id,
+                    title :title,
+                    description:description,
+                    start_time: start_time
+                }
+
+                if (group_id != null) {
+                    addObj.group_id = group_id
+                }
+                
                 if (isAdd) {
-                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)({
-                        type_id : type_id,
-                        title :title,
-                        description:description,
-                        start_time: start_time,
-                        group_id: group_id
-                    }).then((v) => {
+                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)().then((v) => {
                         if (v.status != 200) {
                             errHandler(v.error_msg)
                             return
@@ -167,7 +172,9 @@
                 var getUrlString = location.href;
                 var url = new URL(getUrlString);
                 var type_id = url.searchParams.get('typeID')
+                var group_id = url.searchParams.get('groupID')
                 document.getElementById("type_id").innerHTML = type_id
+                document.getElementById("group_id").innerHTML = group_id
 
                 $(".members-row").hide() 
 
