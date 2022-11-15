@@ -98,10 +98,10 @@
                 successBar("_start_time:" + _start_time)
 
                 var start_time1 = new Date(_start_time);
-                successBar("start_time1:" + start_time1)
+                // successBar("start_time1:" + start_time1)
 
                 var start_time = new Date(_start_time).toISOString();
-                successBar("start_time:" + start_time)
+                // successBar("start_time:" + start_time)
 
                 var addObj = {
                     type_id : type_id,
@@ -117,7 +117,7 @@
                 if (isAdd) {
                     const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)(addObj).then((v) => {
                         if (v.status != 200) {
-                            errHandler(v.error_msg)
+                            // errHandler(v.error_msg)
                             return
                         }
                         if (v.data.length == 0) {
