@@ -21,7 +21,7 @@
         document.ontouchmove = function (e) {
             e.preventDefault();
         }
-        
+
         function checkIsLogin (liff) {
             if (liff.isLoggedIn()) {
                 liff.getProfile()
@@ -100,8 +100,6 @@
                     errHandler("提醒時間不可為空");
                     return
                 }
-
-                successBar("moment:timePicker:")
                 
                 var start_time = new Date(moment(timePicker)).toISOString();
 

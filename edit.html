@@ -15,8 +15,13 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
 
     <script>
+        document.ontouchmove = function (e) {
+            e.preventDefault();
+        }
+        
         function checkIsLogin (liff) {
             if (liff.isLoggedIn()) {
                 liff.getProfile()
@@ -89,10 +94,7 @@
                     return
                 }
 
-                var start_time = new Date(_start_time).toISOString();
-
-
-
+                var start_time = new Date(moment(timePicker)).toISOString();
 
                 const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
                         title :title,
