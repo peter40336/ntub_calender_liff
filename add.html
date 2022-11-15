@@ -105,52 +105,52 @@
                 // var start_time = new Date(Date.parse(_start_time)).toISOString();
                 // successBar("start_time:" + start_time)
 
-                var addObj = {
-                    type_id : type_id,
-                    title :title,
-                    description:description,
-                    start_time: start_time
-                }
+                // var addObj = {
+                //     type_id : type_id,
+                //     title :title,
+                //     description:description,
+                //     start_time: start_time
+                // }
 
-                if (group_id != null) {
-                    addObj.group_id = group_id
-                }
+                // if (group_id != null) {
+                //     addObj.group_id = group_id
+                // }
 
-                if (isAdd) {
-                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)(addObj).then((v) => {
-                        if (v.status != 200) {
-                            // errHandler(v.error_msg)
-                            return
-                        }
-                        if (v.data.length == 0) {
-                            errHandler("請確認您的資料")
-                            return
-                        }
+                // if (isAdd) {
+                //     const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)(addObj).then((v) => {
+                //         if (v.status != 200) {
+                //             // errHandler(v.error_msg)
+                //             return
+                //         }
+                //         if (v.data.length == 0) {
+                //             errHandler("請確認您的資料")
+                //             return
+                //         }
 
-                        var result = v.data[0]
+                //         var result = v.data[0]
 
 
                         
-                        successBar("新增成功")
-                        document.getElementById("save-btn").innerHTML = "更新"
-                        document.getElementById("eventID").innerHTML = result.id
-                    });
-                } else {
-                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
-                        title :title,
-                        description:description,
-                        start_time: start_time
-                    }).then((v) => {
-                        if (v.status != 200) {
-                            errHandler(v.error_msg)
-                            return
-                        }
+                //         successBar("新增成功")
+                //         document.getElementById("save-btn").innerHTML = "更新"
+                //         document.getElementById("eventID").innerHTML = result.id
+                //     });
+                // } else {
+                //     const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
+                //         title :title,
+                //         description:description,
+                //         start_time: start_time
+                //     }).then((v) => {
+                //         if (v.status != 200) {
+                //             errHandler(v.error_msg)
+                //             return
+                //         }
                         
-                        successBar("更新成功")
-                    });
-                }
+                //         successBar("更新成功")
+                //     });
+                // }
 
-                document.getElementById('load_screen').classList.add('d-none');
+                // document.getElementById('load_screen').classList.add('d-none');
             } catch (error) {
                 errHandler(error);
             }
