@@ -145,7 +145,7 @@
                     $("#datetimepicker").flatpickr()
                     if (result.start_time != null) {
 
-                        var _start_time = moment(localTime).local().format('YYYY-MM-DD HH:mm');
+                        var _start_time = moment(result.start_time).local().format('YYYY-MM-DD HH:mm');
 
                         $('#datetimepicker').val(_start_time);
                     }
