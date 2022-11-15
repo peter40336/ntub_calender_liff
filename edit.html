@@ -94,7 +94,7 @@
                     return
                 }
 
-                var start_time = new Date(moment(timePicker)).toISOString();
+                var start_time = new Date(moment(_start_time)).toISOString();
 
                 const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
                         title :title,
