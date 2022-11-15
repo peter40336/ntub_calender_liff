@@ -14,6 +14,7 @@
     <script src="snackbar/snackbar.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
 
     
     <script>
@@ -97,7 +98,7 @@
                     document.getElementById("description").value = result.description
                     var _start_time = '尚未設定'
                     if (result.start_time != null) {
-                        _start_time = new Date(result.start_time).toISOString().substr(0, 16)
+                        _start_time = moment(localTime).local().format('YYYY-MM-DD HH:mm')
                     }
 
                     document.getElementById("start_time").value = _start_time
