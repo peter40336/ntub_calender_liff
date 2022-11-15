@@ -100,7 +100,7 @@
                 var start_time1 = new Date(_start_time);
                 // successBar("start_time1:" + start_time1)
 
-                var start_time = new Date(_start_time).toISOString();
+                var start_time = new Date(Date.parse(_start_time)).toISOString();
                 // successBar("start_time:" + start_time)
 
                 var addObj = {
