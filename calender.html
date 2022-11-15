@@ -15,6 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
     <script src="snackbar/snackbar.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+
 <script>
     function checkIsLogin (liff) {
         if (liff.isLoggedIn()) {
@@ -67,12 +69,19 @@
                                 locale: 'zh-tw',
                             });
                             events.forEach(event => {
+                                var _time = moment(event.time).local().format('YYYY-MM-DDTHH:mm:00');
+
                                 calendar.addEvent({
                                     title: event.title,
-                                    start: event.time,
-                                    end:  event.time,
+                                    start: _time,
+                                    end:  _time,
                                 });
                             });
+                            // calendar.addEvent({
+                            //     title: 'Lunch1',
+                            //     start: '2022-10-08T12:30:00',
+                            //     end: '2022-10-08T13:30:00',
+                            // });
                             calendar.render();
                         } catch (e) {
                             console.log(e)
