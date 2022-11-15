@@ -17,6 +17,10 @@
 
     
     <script>
+        document.ontouchmove = function (e) {
+            e.preventDefault();
+        }
+        
         function checkIsLogin (liff) {
             if (liff.isLoggedIn()) {
                 liff.getProfile()
