@@ -95,8 +95,13 @@
                     errHandler("提醒時間不可為空");
                     return
                 }
+                successBar("_start_time:" + _start_time)
+
+                var start_time1 = new Date(_start_time);
+                successBar("start_time1:" + start_time1)
 
                 var start_time = new Date(_start_time).toISOString();
+                successBar("start_time:" + start_time)
 
                 var addObj = {
                     type_id : type_id,
@@ -108,7 +113,7 @@
                 if (group_id != null) {
                     addObj.group_id = group_id
                 }
-                
+
                 if (isAdd) {
                     const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)().then((v) => {
                         if (v.status != 200) {
