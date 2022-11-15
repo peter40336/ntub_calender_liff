@@ -115,7 +115,7 @@
                 }
 
                 if (isAdd) {
-                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)().then((v) => {
+                    const res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${uID}`)(addObj).then((v) => {
                         if (v.status != 200) {
                             errHandler(v.error_msg)
                             return
