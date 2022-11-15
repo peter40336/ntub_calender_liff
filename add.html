@@ -83,7 +83,7 @@
                 }
 
                 var title = $("#title").val()
-                var _start_time = $("#datetimepicker").val()
+                let timePicker = $("#datetimepicker").val()
                 var description = $("#description").val()
 
                 if (title == null || title == "" || title == undefined) {
@@ -91,16 +91,15 @@
                     return
                 }
 
-                if (_start_time == null || _start_time == "" || _start_time == undefined) {
+                if (timePicker == null || timePicker == "" || timePicker == undefined) {
                     errHandler("提醒時間不可為空");
                     return
                 }
-                successBar("_start_time:" + _start_time)
 
-                var start_time1 = new Date(_start_time);
-                // successBar("start_time1:" + start_time1)
+                var start_time = new Date(Date.parse(timePicker));
+                successBar("start_time1:" + start_time)
 
-                var start_time = new Date(Date.parse(_start_time)).toISOString();
+                // var start_time = new Date(Date.parse(_start_time)).toISOString();
                 // successBar("start_time:" + start_time)
 
                 var addObj = {
