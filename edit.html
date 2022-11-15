@@ -145,7 +145,7 @@
                     $("#datetimepicker").flatpickr()
                     if (result.start_time != null) {
 
-                        var _start_time = new Date(result.start_time).toISOString().substr(0, 10)
+                        var _start_time = new Date(result.start_time).toISOString().substr(0, 16)
 
                         $('#datetimepicker').val(_start_time);
                     }

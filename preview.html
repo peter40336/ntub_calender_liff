@@ -97,7 +97,7 @@
                     document.getElementById("description").value = result.description
                     var _start_time = '尚未設定'
                     if (result.start_time != null) {
-                        _start_time = new Date(result.start_time).toISOString().substr(0, 10)
+                        _start_time = new Date(result.start_time).toISOString().substr(0, 16)
                     }
 
                     document.getElementById("start_time").value = _start_time
