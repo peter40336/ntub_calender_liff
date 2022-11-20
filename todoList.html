@@ -154,11 +154,49 @@
         justify-content: right;
         align-items: center;
     }
+        div#load_screen {
+            background: #ecefff;
+            opacity: 1;
+            position: fixed;
+            z-index: 999999;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%; 
+        }
+
+        div#load_screen .loader {
+            display: flex;
+            justify-content: center;
+            height: 100vh; 
+        }
+
+        div#load_screen .loader-content {
+            right: 0;
+            align-self: center; 
+        }
+
+        .spinner-grow {
+        color: gray; 
+        }
+
+        div#load_screen .loader {
+            width: 100vw;
+        }
+
 </style>
 
 
 </head>
     <body>
+        <div id="load_screen">
+            <div class="loader">
+                <div class="loader-content">
+                    <div class="spinner-grow align-self-center"></div>
+                </div>
+            </div>
+        </div>
         <header class="nav-tabs navbar py-3">
             <nav class="container-fluid justify-content-start">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
