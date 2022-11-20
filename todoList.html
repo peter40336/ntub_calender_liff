@@ -12,6 +12,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
     
 <script>
+    const template = `
+                <div class="home-row">
+                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
+                        <div class="d-flex justify-content-between w-100">
+                            <div>&&title&&</div>
+                            <div>&&time&&</div>
+                        </div>
+                        <div>
+                            &&desc&&
+                        </div>
+                    </div>
+                </div>`
+
     function checkIsLogin (liff) {
         if (liff.isLoggedIn()) {
             liff.getProfile()
@@ -60,8 +73,23 @@
                             }
                         });
 
+                        remaining = v.remaining;
+                        document.getElementById("remaining").innerHTML = remaining
                         console.log("todos_notDone", todos_notDone)
                         console.log("is_done", todos_done)
+
+                    
+                        todos_done.forEach((e) => {
+                            var item = template.replace("&&title&&", e.title).replace("&&time&&", e.time).replace("&&desc&&", e.description)
+                            $("#nav-done").append(item)
+                        })
+
+                        todos_notDone.forEach((e) => {
+                            var item = template.replace("&&title&&", e.title).replace("&&time&&", e.time).replace("&&desc&&", e.description)
+                            $("#nav-undone").append(item)
+                        })
+
+
                     });;
             document.getElementById('load_screen').classList.add('d-none');
         } catch (error) {
@@ -217,7 +245,7 @@
 
         <div class="row">
             <div class="remaining-row d-flex px-4">
-                <span>尚未完成：4</span>
+                <span>尚未完成：<span id="remaining">0</span></span>
             </div>
         </div>
 
@@ -229,7 +257,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-done" role="tabpanel" aria-labelledby="nav-done-tab">
-                <div class="home-row">
+                <!-- <div class="home-row">
                     <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
                         <div class="d-flex justify-content-between w-100">
                             <div>掃地</div>
@@ -238,7 +266,6 @@
                         <div>
                             Me
                         </div>
-			
                     </div>
                 </div>
                 <div class="home-row">
@@ -251,10 +278,10 @@
                             Me
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="tab-pane fade" id="nav-undone" role="tabpanel" aria-labelledby="nav-undone-tab">
-                <div class="home-row">
+                <!-- <div class="home-row">
                     <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
                         <div class="d-flex justify-content-between w-100">
                             <div>採買</div>
@@ -265,7 +292,7 @@
                         </div>
 			
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
