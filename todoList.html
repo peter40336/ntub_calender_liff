@@ -17,7 +17,6 @@
                     <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
                         <div class="d-flex justify-content-between w-100">
                             <div>&&title&&</div>
-                            <div>&&time&&</div>
                         </div>
                         <div>
                             &&desc&&
@@ -80,15 +79,14 @@
 
                     
                         todos_done.forEach((e) => {
-                            var item = template.replace("&&title&&", e.title).replace("&&time&&", e.time).replace("&&desc&&", e.description)
+                            var item = template.replace("&&title&&", e.title).replace("&&desc&&", e.description)
                             $("#nav-done").append(item)
                         })
 
                         todos_notDone.forEach((e) => {
-                            var item = template.replace("&&title&&", e.title).replace("&&time&&", e.time).replace("&&desc&&", e.description)
+                            var item = template.replace("&&title&&", e.title).replace("&&desc&&", e.description)
                             $("#nav-undone").append(item)
                         })
-
 
                     });;
             document.getElementById('load_screen').classList.add('d-none');
