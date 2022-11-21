@@ -15,7 +15,7 @@
     const template = `
 <div class="home-row">
   <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
-    <div class="d-flex justify-content-between w-100" data-id=&&id&&>
+    <div class="&&className&& d-flex justify-content-between w-100" data-id=&&id&&>
       <div>&&title&&
         <div>
             &&desc&&
@@ -90,6 +90,7 @@
                             var item = template.replace("&&title&&", e.title)
                             .replace("&&desc&&", e.description)
                             .replace("&&id&&", e.id)
+                            .replace("&&className&&", "isDone")
                             $("#nav-done").append(item)
                         })
 
@@ -97,6 +98,8 @@
                             var item = template.replace("&&title&&", e.title)
                             .replace("&&desc&&", e.description)
                             .replace("&&id&&", e.id)
+                            .replace("&&className&&", "onGoing")
+
                             $("#nav-undone").append(item)
                         })
 
