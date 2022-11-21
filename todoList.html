@@ -118,7 +118,7 @@
         Snackbar.show({
             actionTextColor: '#fff',
             backgroundColor: '#e7515a',
-            text: err.errmsg ?? err.message,
+            text: err.errmsg ?? err.message ?? err,
             duration: 5000,
             pos: 'top-center',
             });
@@ -192,7 +192,7 @@
             const btn = $(e.target);
             const todoForCheck = $(e.target).parent().parent();
             let todoID = todoForCheck.data("id");
-            if (todoID == undefined || todoID == null || todoID) {
+            if (todoID == undefined || todoID == null || todoID == "") {
                 errHandler("請確認您的資料");
                 return;
             }
