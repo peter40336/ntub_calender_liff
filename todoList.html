@@ -313,50 +313,56 @@
     }
 
     function addItem() {
-        document.getElementById('load_screen').classList.remove('d-none');
+        $('.add.btn').on('click', (e) => {
+            document.getElementById('load_screen').classList.remove('d-none');
+            
+            try {
+                var userID = document.getElementById("uID").innerHTML
+                var groupID = document.getElementById("gID").innerHTML
+                var title = $("#title").val().trim()
+
+                if (title == null || title == "") {
+                    errHandler("請確認您的資料")
+                    document.getElementById('load_screen').classList.add('d-none');
+                }
+
+                var addObj = {
+                    type_id : 3,
+                    title : title
+                }
+                
+                let res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${userID}`)(addObj)
+                                .then((v) => {
+                                    if (v.status != 200) {
+                                        errHandler(v.error_msg)
+                                        document.getElementById('load_screen').classList.add('d-none');
+                                        return
+                                    }
 
 
-        try {
-            var userID = document.getElementById("uID").innerHTML
-            var groupID = document.getElementById("gID").innerHTML
-            var title = $("#title").val().trim()
 
-            if (title == null || title == "") {
+                                    var result = v.data[0]
+                                    let id = result.id
+                                    let _title = result.title
+
+                                    var item = template.replace("&&title&&", _title)
+                                    .replace("&&id&&", id)
+                                    .replace("&&className&&", "onGoing")
+                                    .replace("&&checkText&&", "已完成")
+
+                                    $("#nav-undone").append(item)
+
+                                })
+                                .then(() => {
+                                    GetRemaining(userID, groupID)
+                                })
+            } catch (error) {
+                console.log(err.code, err.message);
                 errHandler("請確認您的資料")
+            } finally {
                 document.getElementById('load_screen').classList.add('d-none');
             }
-
-            var addObj = {
-                type_id : 3,
-                title : title
-            }
-            
-            let res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${userID}`)(addObj)
-                            .then((v) => {
-                                if (v.status != 200) {
-                                    errHandler(v.error_msg)
-                                    document.getElementById('load_screen').classList.add('d-none');
-                                    return
-                                }
-
-                                var item = template.replace("&&title&&", e.title)
-                                .replace("&&desc&&", e.description)
-                                .replace("&&id&&", e.id)
-                                .replace("&&className&&", "onGoing")
-                                .replace("&&checkText&&", "已完成")
-
-                                $("#nav-undone").append(item)
-
-                            })
-                            .then(() => {
-                                GetRemaining(userID, groupID)
-                            })
-        } catch (error) {
-            console.log(err.code, err.message);
-            errHandler("請確認您的資料")
-        } finally {
-            document.getElementById('load_screen').classList.add('d-none');
-        }
+        })
 
 
     }
@@ -447,7 +453,7 @@
 
         <div class="home-row">
             <input class="_form-control" name="title" id="title" type="text">
-            <button class="check btn btn-primary">新增</button>
+            <button class="add btn btn-primary">新增</button>
         </div>
 
         <div class="row">
