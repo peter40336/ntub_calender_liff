@@ -17,9 +17,6 @@
   <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
     <div class="&&className&& d-flex justify-content-between w-100" data-id=&&id&&>
       <div>&&title&&
-        <div>
-            &&desc&&
-        </div>
       </div>
       <div>
         <button class="check btn btn-primary">&&checkText&&</button>
@@ -261,7 +258,7 @@
                         GetRemaining(userID, groupID)
                     })
                 } else {
-                    let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?status=true`)()
+                    let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=true`)()
                         .then((v) => {
                             if (v.status != 200) {
                                 errHandler(v.error_msg)
@@ -313,6 +310,55 @@
             console.log(err.code, err.message);
             errHandler("請確認您的資料")
         }
+    }
+
+    function addItem() {
+        document.getElementById('load_screen').classList.remove('d-none');
+
+
+        try {
+            var userID = document.getElementById("uID").innerHTML
+            var groupID = document.getElementById("gID").innerHTML
+            var title = $("#title").val().trim()
+
+            if (title == null || title == "") {
+                errHandler("請確認您的資料")
+                document.getElementById('load_screen').classList.add('d-none');
+            }
+
+            var addObj = {
+                type_id : 3,
+                title : title
+            }
+            
+            let res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${userID}`)(addObj)
+                            .then((v) => {
+                                if (v.status != 200) {
+                                    errHandler(v.error_msg)
+                                    document.getElementById('load_screen').classList.add('d-none');
+                                    return
+                                }
+
+                                var item = template.replace("&&title&&", e.title)
+                                .replace("&&desc&&", e.description)
+                                .replace("&&id&&", e.id)
+                                .replace("&&className&&", "onGoing")
+                                .replace("&&checkText&&", "已完成")
+
+                                $("#nav-undone").append(item)
+
+                            })
+                            .then(() => {
+                                GetRemaining(userID, groupID)
+                            })
+        } catch (error) {
+            console.log(err.code, err.message);
+            errHandler("請確認您的資料")
+        } finally {
+            document.getElementById('load_screen').classList.add('d-none');
+        }
+
+
     }
 </script>
 
@@ -400,12 +446,12 @@
         </header>
 
         <div class="home-row">
-            <input class="_form-control" name="todo" id="todo" type="text">
+            <input class="_form-control" name="title" id="title" type="text">
             <button class="check btn btn-primary">新增</button>
         </div>
 
         <div class="row">
-            <div class="remaining-row d-flex px-4">
+            <div class="remaining-row d-flex px-5">
                 <span>尚未完成：<span id="remaining">0</span></span>
             </div>
         </div>
