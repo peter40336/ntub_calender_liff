@@ -356,6 +356,7 @@
                                 })
                                 .then(() => {
                                     GetRemaining(userID, groupID)
+                                    $("#title").val("")
                                 })
             } catch (error) {
                 console.log(err.code, err.message);
