@@ -262,7 +262,7 @@
                         GetRemaining(userID, groupID)
                     })
                 } else {
-                    let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=true`)()
+                    let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?status=true`)()
                         .then((v) => {
                             if (v.status != 200) {
                                 errHandler(v.error_msg)
