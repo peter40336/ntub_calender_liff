@@ -13,16 +13,22 @@
     
 <script>
     const template = `
-                <div class="home-row">
-                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
-                        <div class="d-flex justify-content-between w-100">
-                            <div>&&title&&</div>
-                        </div>
-                        <div>
-                            &&desc&&
-                        </div>
-                    </div>
-                </div>`
+<div class="home-row">
+  <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
+    <div class="d-flex justify-content-between w-100">
+      <div>&&title&&
+        <div>
+            &&desc&&
+        </div>
+      </div>
+      <div>
+        <button class="check btn btn-primary">已完成</button>
+        <button class="edit btn btn-success" data-toggle="modal" data-target="#edit-content">編輯</button>
+        <button class="delete btn btn-danger">刪除</button>
+      </div>
+    </div>
+  </div>
+</div>`
 
     function checkIsLogin (liff) {
         if (liff.isLoggedIn()) {
@@ -159,10 +165,40 @@
         .then(() => {
             todoListPoint()
         })
+        .then(() => {
+            completeBtn()
+        })
         .catch((err) => {
             console.log(err.code, err.message);
         });
     });
+
+    function completeBtn() {
+        $('.todo-list').on('click', '.check.btn', (e) => {
+            const btn = $(e.target);
+            console.log(btn)
+            const todoForCheck = $(e.target).parent().parent();
+            console.log(todoForCheck)
+
+            // 變成沒完成
+            // if (btn.hasClass('completed')) {
+            // todoForCheck.removeClass('completed');
+            // todoForCheck.find('.content').removeClass('completed-item');
+            // btn.removeClass('completed');
+            // btn.removeClass('btn-secondary').addClass('btn-primary');
+            // btn.text('已完成');
+            // btn.parent().find('.edit').show();
+            // 變成已完成
+            // } else {
+            // todoForCheck.addClass('completed');
+            // todoForCheck.find('.content').addClass('completed-item');
+            // btn.addClass('completed');
+            // btn.removeClass('btn-primary').addClass('btn-secondary');
+            // btn.text('未完成');
+            // btn.parent().find('.edit').hide();
+            // }
+        });
+    }
 </script>
 
 <style>
@@ -253,44 +289,11 @@
                 <button class="nav-link w-50" id="nav-undone-tab" data-bs-toggle="tab" data-bs-target="#nav-undone" type="button" role="tab" aria-controls="nav-undone" aria-selected="false">未完成</button>
             </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content todo-list" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-done" role="tabpanel" aria-labelledby="nav-done-tab">
-                <!-- <div class="home-row">
-                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
-                        <div class="d-flex justify-content-between w-100">
-                            <div>掃地</div>
-                            <div>2022/10/10</div>
-                        </div>
-                        <div>
-                            Me
-                        </div>
-                    </div>
-                </div>
-                <div class="home-row">
-                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
-                        <div class="d-flex justify-content-between w-100">
-                            <div>訂餐廳</div>
-                            <div>2022/10/14</div>
-                        </div>
-                        <div>
-                            Me
-                        </div>
-                    </div>
-                </div> -->
             </div>
+
             <div class="tab-pane fade" id="nav-undone" role="tabpanel" aria-labelledby="nav-undone-tab">
-                <!-- <div class="home-row">
-                    <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
-                        <div class="d-flex justify-content-between w-100">
-                            <div>採買</div>
-                            <div>2022/10/01</div>
-                        </div>
-                        <div>
-                            Me
-                        </div>
-			
-                    </div>
-                </div> -->
             </div>
         </div>
 
