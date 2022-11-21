@@ -15,7 +15,7 @@
     const template = `
 <div class="home-row">
   <div class="home-row-contain d-flex align-items-center px-3 flex-wrap">
-    <div class="d-flex justify-content-between w-100">
+    <div class="d-flex justify-content-between w-100" data-id=&&id&&>
       <div>&&title&&
         <div>
             &&desc&&
@@ -65,12 +65,14 @@
 
                             if (e.is_done === true) {
                                 todos_done.push({
+                                    id: e.id,
                                     title: e.title,
                                     description: e.description,
                                     time: _time
                                 })
                             } else {
                                 todos_notDone.push({
+                                    id: e.id,
                                     title: e.title,
                                     description: e.description,
                                     time: _time
@@ -85,12 +87,16 @@
 
                     
                         todos_done.forEach((e) => {
-                            var item = template.replace("&&title&&", e.title).replace("&&desc&&", e.description)
+                            var item = template.replace("&&title&&", e.title)
+                            .replace("&&desc&&", e.description)
+                            .replace("&&id&&", e.id)
                             $("#nav-done").append(item)
                         })
 
                         todos_notDone.forEach((e) => {
-                            var item = template.replace("&&title&&", e.title).replace("&&desc&&", e.description)
+                            var item = template.replace("&&title&&", e.title)
+                            .replace("&&desc&&", e.description)
+                            .replace("&&id&&", e.id)
                             $("#nav-undone").append(item)
                         })
 
@@ -179,7 +185,7 @@
             console.log(btn)
             const todoForCheck = $(e.target).parent().parent();
             console.log(todoForCheck)
-
+            console.log(todoForCheck.data("id"))
             // 變成沒完成
             // if (btn.hasClass('completed')) {
             // todoForCheck.removeClass('completed');
