@@ -255,7 +255,7 @@
                             checkBtn.text("已完成")
                             checkBtn.parent().parent().removeClass('isDone')
                             checkBtn.parent().parent().addClass('onGoing')
-                            $("#nav-notDone").append(item)
+                            $("#nav-undone").append(item)
                         })
                 } else {
                     let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=true`)()
