@@ -198,7 +198,6 @@
             }
             document.getElementById('load_screen').classList.remove('d-none');
 
-            // 變成沒完成
             if (todoForCheck.hasClass('isDone')) {
                 let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=false`)()
                     .then((v) => {
@@ -208,21 +207,14 @@
                             return
                         }
                         let item = todoForCheck.parent().parent()
-                        console.log(item)
+                        item.remove()
+
                         let checkBtn = item.find(".check.btn")
                         checkBtn.text("已完成")
                         checkBtn.parent().parent().removeClass('isDone')
                         checkBtn.parent().parent().addClass('onGoing')
-
-                        item.remove()
+                        $("#nav-notDone").append(item)
                     })
-                // todoForCheck.removeClass('completed');
-                // todoForCheck.find('.content').removeClass('completed-item');
-                // btn.removeClass('completed');
-                // btn.removeClass('btn-secondary').addClass('btn-primary');
-                // btn.text('已完成');
-                // btn.parent().find('.edit').show();
-            // 變成已完成
             } else {
                 let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=true`)()
                     .then((v) => {
@@ -232,17 +224,32 @@
                             return
                         }
                         let item = todoForCheck.parent().parent()
-                        console.log(item)
                         item.remove()
-                    })
 
-                // todoForCheck.addClass('completed');
-                // todoForCheck.find('.content').addClass('completed-item');
-                // btn.addClass('completed');
-                // btn.removeClass('btn-primary').addClass('btn-secondary');
-                // btn.text('未完成');
-                // btn.parent().find('.edit').hide();
+                        let checkBtn = item.find(".check.btn")
+                        checkBtn.text("未完成")
+                        checkBtn.parent().parent().removeClass('onGoing')
+                        checkBtn.parent().parent().addClass('isDone')
+                        $("#nav-done").append(item)
+                    })
             }
+
+            var url = `https://line-calendar.sekixu.dev/event/list/${userID}?type_id=3`
+
+            var groupID = document.getElementById("gID").innerHTML
+            if (groupID != null && groupID != '') {
+                url += `&group_id=${groupID}`
+            }
+
+            let res_remaining = fetchCurried(url)()
+                    .then((v) => {
+                        if (v.status != 200) {
+                            errHandler(v.error_msg)
+                            return
+                        }
+                        remaining = v.remaining;
+                        document.getElementById("remaining").innerHTML = remaining
+                    });
 
             document.getElementById('load_screen').classList.add('d-none');
         });
