@@ -185,29 +185,49 @@
     });
 
     function completeBtn() {
+        var userID = document.getElementById("uID").innerHTML
+
         $('.todo-list').on('click', '.check.btn', (e) => {
+
             const btn = $(e.target);
-            console.log(btn)
             const todoForCheck = $(e.target).parent().parent();
-            console.log(todoForCheck)
-            console.log(todoForCheck.data("id"))
+            let todoID = todoForCheck.data("id");
+            if (todoID == undefined || todoID == null || todoID) {
+                errHandler("請確認您的資料");
+                return;
+            }
+            document.getElementById('load_screen').classList.remove('d-none');
+
             // 變成沒完成
-            // if (btn.hasClass('completed')) {
-            // todoForCheck.removeClass('completed');
-            // todoForCheck.find('.content').removeClass('completed-item');
-            // btn.removeClass('completed');
-            // btn.removeClass('btn-secondary').addClass('btn-primary');
-            // btn.text('已完成');
-            // btn.parent().find('.edit').show();
+            if (todoForCheck.hasClass('isDone')) {
+                let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=false`)()
+                    .then((v) => {
+                        if (v.status != 200) {
+                            errHandler(v.error_msg)
+                            document.getElementById('load_screen').classList.add('d-none');
+                            return
+                        }
+                        let item = todoForCheck.parent().parent()
+                        console.log(item)
+                        item.remove()
+                    })
+                // todoForCheck.removeClass('completed');
+                // todoForCheck.find('.content').removeClass('completed-item');
+                // btn.removeClass('completed');
+                // btn.removeClass('btn-secondary').addClass('btn-primary');
+                // btn.text('已完成');
+                // btn.parent().find('.edit').show();
             // 變成已完成
-            // } else {
-            // todoForCheck.addClass('completed');
-            // todoForCheck.find('.content').addClass('completed-item');
-            // btn.addClass('completed');
-            // btn.removeClass('btn-primary').addClass('btn-secondary');
-            // btn.text('未完成');
-            // btn.parent().find('.edit').hide();
-            // }
+            } else {
+                // todoForCheck.addClass('completed');
+                // todoForCheck.find('.content').addClass('completed-item');
+                // btn.addClass('completed');
+                // btn.removeClass('btn-primary').addClass('btn-secondary');
+                // btn.text('未完成');
+                // btn.parent().find('.edit').hide();
+            }
+
+            document.getElementById('load_screen').classList.add('d-none');
         });
     }
 </script>
