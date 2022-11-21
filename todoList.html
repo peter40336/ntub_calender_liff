@@ -211,8 +211,9 @@
                             let item = todoForDelete.parent().parent()
                             item.remove()
                         })
-
-                GetRemaining(userID, groupID)
+                        .then(() => {
+                            GetRemaining(userID, groupID)
+                        })
             } catch (error) {
                 console.log(err.code, err.message);
                 errHandler("請確認您的資料")
@@ -257,6 +258,9 @@
                             checkBtn.parent().parent().addClass('onGoing')
                             $("#nav-undone").append(item)
                         })
+                    .then(() => {
+                        GetRemaining(userID, groupID)
+                    })
                 } else {
                     let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=true`)()
                         .then((v) => {
@@ -274,9 +278,11 @@
                             checkBtn.parent().parent().addClass('isDone')
                             $("#nav-done").append(item)
                         })
+                        .then(() => {
+                            GetRemaining(userID, groupID)
+                        })
                 }
 
-                GetRemaining(userID, groupID)
             } catch (error) {
                 console.log(err.code, err.message);
                 errHandler("請確認您的資料")
