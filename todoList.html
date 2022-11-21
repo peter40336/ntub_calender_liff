@@ -209,6 +209,11 @@
                         }
                         let item = todoForCheck.parent().parent()
                         console.log(item)
+                        let checkBtn = item.find(".check.btn")
+                        checkBtn.text("已完成")
+                        checkBtn.parent().parent().removeClass('isDone')
+                        checkBtn.parent().parent().addClass('onGoing')
+
                         item.remove()
                     })
                 // todoForCheck.removeClass('completed');
@@ -219,6 +224,18 @@
                 // btn.parent().find('.edit').show();
             // 變成已完成
             } else {
+                let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=true`)()
+                    .then((v) => {
+                        if (v.status != 200) {
+                            errHandler(v.error_msg)
+                            document.getElementById('load_screen').classList.add('d-none');
+                            return
+                        }
+                        let item = todoForCheck.parent().parent()
+                        console.log(item)
+                        item.remove()
+                    })
+
                 // todoForCheck.addClass('completed');
                 // todoForCheck.find('.content').addClass('completed-item');
                 // btn.addClass('completed');
