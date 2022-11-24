@@ -161,6 +161,8 @@
                         document.getElementById("pageTitle").innerHTML = "行事曆"
                     } else if(result.type_id == 2) {
                         document.getElementById("pageTitle").innerHTML = "提醒"
+                    } else if(result.type_id == 3) {
+                        document.getElementById("pageTitle").innerHTML = "待辦事項"
                     } else {
                         errHandler("請確認您的資料");
                     }
