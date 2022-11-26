@@ -147,6 +147,8 @@
 
                         var _start_time = moment(result.start_time).local().format('YYYY-MM-DD HH:mm');
 
+                        successBar(_start_time)
+
                         $('#datetimepicker').val(_start_time);
                     }
                     $('#datetimepicker').val(result.start_time);
