@@ -147,16 +147,12 @@
 
                         var _start_time = moment(result.start_time).local().format('YYYY-MM-DD HH:mm');
 
-                        successBar(_start_time)
-
-                        // $('#datetimepicker').val(_start_time);
-
                         $("#datetimepicker").flatpickr({
                             defaultDate: new Date(_start_time)
                         })
                     }
 
-                    
+
                     // TODO 補上人名
                     $(".members-row").hide() 
 
@@ -342,14 +338,14 @@
         </nav>
     </header>
 
-    <div class="row">
+    <div>
         <div class="space-row">
         </div>
 
         <div class="home-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
-                <div class="row w-100">
+                <div class="">
                     <label for="title" class="col-3 col-form-label">名稱</label>
                     
                     <div class="input-col">
@@ -365,7 +361,7 @@
         <div class="home-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
-                <div class="row w-100">
+                <div class="">
                     <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
@@ -382,7 +378,7 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <!-- TODO 下拉 -->
-                <div class="row w-100">
+                <div class="">
                     <label for="" class="col-3 col-form-label">參與人</label>
                     
                     
@@ -404,7 +400,7 @@
         <div class="home-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
-                <div class="row w-100">
+                <div class="">
                     <label for="description" class="col-3 col-form-label">備註</label>
                     
                     <div class="col-9">

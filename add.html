@@ -199,7 +199,8 @@
                     document.getElementById("pageTitle").innerHTML = "提醒"
                 } else if (type_id == 3 || type_id == "3") {
                     document.getElementById("pageTitle").innerHTML = "待辦事項"
-                } else {
+                    $("#start_time_row").hide()
+                } else {    
                     errHandler("請確認您的資料")
                     return;
                 }
@@ -338,14 +339,14 @@
         </nav>
     </header>
 
-    <div class="row">
+    <div>
         <div class="space-row">
         </div>
 
         <div class="home-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
-                <div class="row w-100">
+                <div class="w-100">
                     <label for="title" class="col-3 col-form-label">名稱</label>
                     
                     <div class="input-col">
@@ -361,7 +362,7 @@
         <div class="home-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
-                <div class="row w-100">
+                <div class="">
                     <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
@@ -378,7 +379,7 @@
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
                 <!-- TODO 下拉 -->
-                <div class="row w-100">
+                <div class="">
                     <label for="" class="col-3 col-form-label">參與人</label>
                     
                     
@@ -400,7 +401,7 @@
         <div class="home-row">
             <div class="home-row-contain container-fluid d-flex align-items-center px-3">
 
-                <div class="row w-100">
+                <div class="">
                     <label for="description" class="col-3 col-form-label">備註</label>
                     
                     <div class="col-9">
