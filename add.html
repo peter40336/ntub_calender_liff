@@ -199,6 +199,7 @@
                     document.getElementById("pageTitle").innerHTML = "提醒"
                 } else if (type_id == 3 || type_id == "3") {
                     document.getElementById("pageTitle").innerHTML = "待辦事項"
+                    $("#start_time_row").hide()
                 } else {
                     errHandler("請確認您的資料")
                     return;

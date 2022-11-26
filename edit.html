@@ -147,10 +147,6 @@
 
                         var _start_time = moment(result.start_time).local().format('YYYY-MM-DD HH:mm');
 
-                        successBar(_start_time)
-
-                        // $('#datetimepicker').val(_start_time);
-
                         $("#datetimepicker").flatpickr({
                             defaultDate: new Date(_start_time)
                         })
