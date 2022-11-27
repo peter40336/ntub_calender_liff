@@ -39,7 +39,7 @@
         try {
             var userID = document.getElementById("uID").innerHTML
             var groupID = document.getElementById("gID").innerHTML
-            var url = `https://line-calendar.sekixu.dev/event/list/${userID}?type_id=3`
+            var url = `https://937c-150-116-65-27.jp.ngrok.io/event/list/${userID}?type_id=3`
 
             if (groupID != null && groupID != '') {
                 url += `&group_id=${groupID}`
@@ -197,7 +197,7 @@
                     return;
                 }
                 
-                let res = fetchCurried(`https://line-calendar.sekixu.dev/event/delete/${userID}/${todoID}`)()
+                let res = fetchCurried(`https://937c-150-116-65-27.jp.ngrok.io/event/delete/${userID}/${todoID}`)()
                         .then((v) => {
                             if (v.status != 200) {
                                 errHandler(v.error_msg)
@@ -240,7 +240,7 @@
                 }
 
                 if (todoForCheck.hasClass('isDone')) {
-                    let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=false`)()
+                    let res = fetchCurried(`https://937c-150-116-65-27.jp.ngrok.io/event/status/${userID}/${todoID}?is_done=false`)()
                         .then((v) => {
                             if (v.status != 200) {
                                 errHandler(v.error_msg)
@@ -260,7 +260,7 @@
                         GetRemaining(userID, groupID)
                     })
                 } else {
-                    let res = fetchCurried(`https://line-calendar.sekixu.dev/event/status/${userID}/${todoID}?is_done=true`)()
+                    let res = fetchCurried(`https://937c-150-116-65-27.jp.ngrok.io/event/status/${userID}/${todoID}?is_done=true`)()
                         .then((v) => {
                             if (v.status != 200) {
                                 errHandler(v.error_msg)
@@ -293,7 +293,7 @@
 
     function GetRemaining(userID, groupID) {
         try {
-            var url = `https://line-calendar.sekixu.dev/event/list/${userID}?type_id=3`
+            var url = `https://937c-150-116-65-27.jp.ngrok.io/event/list/${userID}?type_id=3`
 
             if (groupID != null && groupID != '') {
                 url += `&group_id=${groupID}`
@@ -333,7 +333,7 @@
                     title : title
                 }
                 
-                let res = fetchCurried(`https://line-calendar.sekixu.dev/event/create/${userID}`)(addObj)
+                let res = fetchCurried(`https://937c-150-116-65-27.jp.ngrok.io/event/create/${userID}`)(addObj)
                                 .then((v) => {
                                     if (v.status != 200) {
                                         errHandler(v.error_msg)

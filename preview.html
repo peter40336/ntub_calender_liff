@@ -81,7 +81,7 @@
                 }
 
 
-                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/list/${uID}?event_id=${eventID}`)().then((v) => {
+                const res = fetchCurried(`https://937c-150-116-65-27.jp.ngrok.io/event/list/${uID}?event_id=${eventID}`)().then((v) => {
                     if (v.status != 200) {
                         errHandler(v.error_msg)
                         return

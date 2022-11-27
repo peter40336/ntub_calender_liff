@@ -96,7 +96,7 @@
 
                 var start_time = new Date(moment(_start_time)).toISOString();
 
-                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/update/${uID}/${eventID}`)({
+                const res = fetchCurried(`https://937c-150-116-65-27.jp.ngrok.io/event/update/${uID}/${eventID}`)({
                         title :title,
                         description:description,
                         start_time: start_time
@@ -126,7 +126,7 @@
                 }
 
 
-                const res = fetchCurried(`https://line-calendar.sekixu.dev/event/list/${uID}?event_id=${eventID}`)().then((v) => {
+                const res = fetchCurried(`https://937c-150-116-65-27.jp.ngrok.io/event/list/${uID}?event_id=${eventID}`)().then((v) => {
                     if (v.status != 200) {
                         errHandler(v.error_msg)
                         return
