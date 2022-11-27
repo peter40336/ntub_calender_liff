@@ -357,6 +357,7 @@
                                 .then(() => {
                                     GetRemaining(userID, groupID)
                                     $("#title").val("")
+                                    successBar("新增成功")
                                 })
             } catch (error) {
                 console.log(err.code, err.message);
