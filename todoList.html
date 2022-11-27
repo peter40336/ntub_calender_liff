@@ -210,6 +210,7 @@
                         })
                         .then(() => {
                             GetRemaining(userID, groupID)
+                            successBar("刪除成功")
                         })
             } catch (error) {
                 console.log(err.code, err.message);
