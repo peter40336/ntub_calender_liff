@@ -51,7 +51,8 @@
                             if (e.start_time != null) {
                                 events.push({
                                     title: e.title,
-                                    time: e.start_time
+                                    time: e.start_time,
+                                    id: e.id
                                 })
                             }
                         });
@@ -67,6 +68,14 @@
                                 },
                                 height: '600px',
                                 locale: 'zh-tw',
+                                eventClick: function(info) {
+                                    info.jsEvent.preventDefault(); // don't let the browser navigate
+
+                                    if (info.event.url) {
+                                        window.open(info.event.url);
+                                    }
+                                }
+
                             });
                             events.forEach(event => {
                                 var _time = moment(event.time).local().format('YYYY-MM-DDTHH:mm:00');
@@ -75,13 +84,10 @@
                                     title: event.title,
                                     start: _time,
                                     end:  _time,
+                                    url: `https://peter40336.github.io/ntub_calender_liff/preview.html?eventID=${event.id}`
                                 });
                             });
-                            // calendar.addEvent({
-                            //     title: 'Lunch1',
-                            //     start: '2022-10-08T12:30:00',
-                            //     end: '2022-10-08T13:30:00',
-                            // });
+
                             calendar.render();
                         } catch (e) {
                             console.log(e)
@@ -234,7 +240,7 @@
             width: 200%;
         }
      }
-     
+
 </style>
 
 
