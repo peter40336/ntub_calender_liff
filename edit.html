@@ -178,12 +178,6 @@
             }
         }
 
-        function timechange() {
-            let ss = $('#datetimepicker').val()
-
-            successBar(ss)
-        }
-
         $(document).ready(function () {
             document.getElementById('load_screen').classList.remove('d-none');
 
@@ -365,7 +359,7 @@
                     <label for="Date" class="col-3 col-form-label">提醒時間</label>
                     
                     <div class="input-col">
-                        <input class="form-control" id="datetimepicker" class="flatpickr" data-enable-time=true onchange="timechange()">
+                        <input class="form-control" id="datetimepicker" class="flatpickr" data-enable-time=true>
                     </div>
                 </div>
             </div>
