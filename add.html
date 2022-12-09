@@ -205,7 +205,10 @@
                     return;
                 }
 
-                $("#datetimepicker").flatpickr()
+                $("#datetimepicker").flatpickr({
+                    defaultDate: new Date()
+                })
+                    
 
                 document.getElementById('load_screen').classList.add('d-none');
             })
