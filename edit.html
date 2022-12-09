@@ -239,22 +239,26 @@
             line-height: normal;
         }
 
-
         .form-control1 {
-            padding: 12px 0px;
+            padding: 12px 18px;
             border-radius: 22px;
             box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
             border: solid 1px rgba(0,0,0,.2);
+            background-color: #fff;
+            color: #212529;
             line-height: 1.5;;
             appearance: none;
             width: 100%;
             display: block;
             background-clip: padding-box;
-            background-color: #fff;
-            color: #212529;
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
 
+        @media (max-width: 576px) { 
+            .form-control1 {
+                padding: 12px 0px !important;
+            }
+        }
         .col-form-label {
             font-size: 18px;
             font-weight: normal;
